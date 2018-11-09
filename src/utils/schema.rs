@@ -5,6 +5,7 @@ table! {
         username -> Text,
         password -> Text,
         created_at -> Timestamp,
+        avatar -> Text,
     }
 }
 

@@ -3,6 +3,7 @@ use actix_web::{actix::Handler,error,Error};
 use chrono::Utc;
 use bcrypt::{DEFAULT_COST, hash, verify};
 use jwt::{encode, Header, Algorithm};
+use md5::compute;
 
 use model::user::{User, NewUser, SignupUser, SigninUser, UserInfo, UserUpdate, UserId,
                   UserDelete, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
@@ -35,11 +36,15 @@ impl Handler<SignupUser> for ConnDsl {
                             Ok(h) => h,
                             Err(_) => panic!()
                         };
+                        let digest = compute(&signup_user.email);
+                        let md5str = format!("{:x}", digest);
+                        let avatar_url = "http://www.gravatar.com/avatar/".to_string() + &md5str + "?s=150";
                         let new_user = NewUser {
                             email: &signup_user.email,
                             username: &signup_user.username,
                             password: &hash_password,
                             created_at: Utc::now().naive_utc(),
+                            avatar: &avatar_url,
                         };
                         diesel::insert_into(users).values(&new_user).execute(conn).map_err(error::ErrorInternalServerError)?;
                         Ok(Msgs { 
@@ -63,10 +68,10 @@ impl Handler<SigninUser> for ConnDsl {
     fn handle(&mut self, signin_user: SigninUser, _: &mut Self::Context) -> Self::Result {
         use utils::schema::users::dsl::*;
         let conn = &self.0.get().map_err(error::ErrorInternalServerError)?;
-        let login_user =  users.filter(&username.eq(&signin_user.username)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
+        let mut login_user =  users.filter(&username.eq(&signin_user.username)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
         let no_user = User::new();
         match login_user {
-            Some(login_user) => {
+            Some(mut login_user) => {
                 match verify(&signin_user.password, &login_user.password) {
                     Ok(valid) => {
                         if signin_user.code == 0 {
@@ -78,12 +83,16 @@ impl Handler<SigninUser> for ConnDsl {
                                 Ok(t) => t,
                                 Err(_) => panic!() // in practice you would return the error
                             };
+                            if login_user.avatar == "" {
+                                login_user.avatar = "https://www.gravatar.com/avatar/1".to_string();
+                            }
                             let the_user = User {
                                 id: login_user.id,
                                 email: login_user.email.clone(),
                                 username: login_user.username.clone(),
                                 password: login_user.password.clone(),
                                 created_at : login_user.created_at.clone(),
+                                avatar : login_user.avatar.clone(),
                             };
                             Ok(SigninMsgs { 
                                 status: 200,
@@ -138,6 +147,7 @@ impl Handler<UserInfo> for ConnDsl {
                             username: login_user.username,
                             password: login_user.password,
                             created_at : login_user.created_at,
+                            avatar : login_user.avatar,
                     };
                     Ok(UserInfoMsgs {
                             status: 200,

@@ -18,12 +18,17 @@
                         <div id="count">评论 &nbsp; {{ theme.comment_count }} </div>
                         <div v-for="(comment, index) in theme_comments" :key="index">
                             <div id="detail">
-                                <div id="infos">
-                                    <span id="info" >{{ index + 1 }}&nbsp;</span>
-                                    <span id="info"><a :href="'/a/user/' + comment.user_id">{{ comment.username }}</a></span> • 
-                                    <span id="info">{{ comment.rtime }}</span>
+                                <di id="avatar">
+                                    <a :href="'/a/user/' + comment.user.id"><img :src= comment.user.avatar ></a>
+                                </di>
+                                <div id="comment_item"> 
+                                    <div id="infos">
+                                        <span id="info" >{{ index + 1 }}&nbsp;</span>
+                                        <span id="info"><a :href="'/a/user/' + comment.user_id">{{ comment.user.username }}</a></span> • 
+                                        <span id="info">{{ comment.rtime }}</span>
+                                    </div>
+                                    <div id="content" v-html="comment.content" v-highlight> </div>
                                 </div>
-                                <div id="content" v-html="comment.content" v-highlight> </div>
                             </div>
                         </div>
                     </div>
@@ -111,16 +116,24 @@ export default {
     mounted: function() {
         if (localStorage.getItem('signin_user')){
             this.signin_user = JSON.parse(localStorage.getItem('signin_user'))
+        }else{
+            return 
         }
         fetch(URLprefix + 'api/theme/'+ this.$route.params.id,{
             method: 'GET',
         }).then(response => response.json())
         .then(json => {
             this.theme = json.theme
+            console.log(json.theme)
             this.theme_user = json.theme_user
             this.theme_rtime = json.theme_rtime
             this.theme_category_name_cn = json.theme_category_name_cn
             this.theme_category_name = json.theme_category_name
+            json.theme_comments.map((item) => {
+                if (item.user.avatar == "") {
+                    item.user.avatar = "https://www.gravatar.com/avatar/1"
+                }
+            })
             this.theme_comments = json.theme_comments
         }).catch((e) => {
             console.log(e)
@@ -197,22 +210,28 @@ export default {
     background-color: #faf5f5;
     border: 0;
 }
-#main #center #comment > #count {
+#main #center #comment #count {
     font-weight: bold;
     color: fuchsia;
     padding: 10px;
     border-bottom: 1px solid rgb(223, 223, 223);
 }
 #main #center #comment #detail {
-    padding: 0.3rem 0.6rem;
+    display: flex;
+    padding: 0.3rem 0.5rem 0;
     border-bottom: 1px solid rgb(223, 223, 223);
+}
+#main #center #comment #detail #comment_item {
+    flex: 1;
+}
+#main #center #comment #detail #infos, #main #center #comment #detail #content {
+    margin-top: -0.3rem;
 }
 #main #center #comment #content {
     line-height: 1.3rem;
     font-size: 0.9rem;
 }
-#main #center #comment #detail #info{
-    display: inline-block;
+#main #center #comment #detail #info {
     font-size: 14px;
 }
 #main #center h1,
@@ -299,6 +318,12 @@ export default {
     #main #center iframe {
         height: 320px;
     }
+    #main #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.1rem 0.4rem 0 0;
+        border-radius: 11%;
+    }
 }
 @media only screen and (min-width: 600px) and (max-width: 850px) {
     #main {
@@ -313,6 +338,12 @@ export default {
     #main #container #center {
         width: 90%;
         margin-right: 1vw;
+    }
+    #main #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.1rem 0.4rem 0 0;
+        border-radius: 11%;
     }
     #main #container #side {
         flex: 1;
@@ -334,6 +365,12 @@ export default {
     #main #container #center {
         width: 80%;
         margin-right: 1vw;
+    }
+    #main #container #center #avatar img {
+        width: 2.6rem;
+        height: 2.6rem;
+        margin: 0 0.5rem 0 0;
+        border-radius: 11%;
     }
     #main #container #side {
         flex: 1;

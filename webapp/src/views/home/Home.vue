@@ -15,30 +15,37 @@
               </div>
               <div id="content">
                       <div id="items" v-for="(theme, index) in theme_list" :key="index">
-                            <div id="office" v-if="theme.category_name === 'office'">
-                                <div id="office-title">
-                                  <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
-                                </div>
-                                <div id="detail">
-                                    <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
-                                    <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
-                                    <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
-                                    <span id="info">{{ theme.view_count }}</span>
-                                    <span id="info"> {{ theme.rtime }} </span>
-                                </div> 
-                            </div>
-                            <div id="item" v-if="theme.category_name !== 'office'">
-                                <div id="item-title">
-                                  <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
-                                </div>
-                                <div id="detail">
-                                    <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
-                                    <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
-                                    <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
-                                    <span id="info">{{ theme.view_count }}</span>
-                                    <span id="info"> {{ theme.rtime }} </span>
-                                </div>
-                            </div>
+                          <div id="line">
+                            <di id="avatar">
+                              <a :href="'/a/user/' + theme.user_id"><img :src= theme.user_avatar ></a>
+                            </di>
+                            <di id="theme_item">  
+                              <div id="office" v-if="theme.category_name === 'office'">
+                                  <div id="office-title">
+                                    <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
+                                  </div>
+                                  <div id="detail">
+                                      <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
+                                      <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
+                                      <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
+                                      <span id="info">{{ theme.view_count }}</span>
+                                      <span id="info"> {{ theme.rtime }} </span>
+                                  </div> 
+                              </div>
+                              <div id="item" v-if="theme.category_name !== 'office'">
+                                  <div id="item-title">
+                                    <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
+                                  </div>
+                                  <div id="detail">
+                                      <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
+                                      <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
+                                      <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
+                                      <span id="info">{{ theme.view_count }}</span>
+                                      <span id="info"> {{ theme.rtime }} </span>
+                                  </div>
+                              </div>
+                            </di>
+                          </div>
                       </div>
               </div>
               <div >
@@ -123,6 +130,11 @@ export default {
               .then(json => {
                   this.page_count = json.theme_page_count
                   this.half_count = Math.ceil(json.theme_page_count/2)
+                  json.theme_list.map((item) => {
+                    if (item.user_avatar == "") {
+                      item.user_avatar = "https://www.gravatar.com/avatar/1"
+                    }
+                  })
                   this.theme_list = json.theme_list
                   this.categorys = json.categorys
               })
@@ -172,8 +184,13 @@ export default {
   font-weight: bold;
   margin-right: 1rem;
 }
-#center #items #office, #center #items #item {
-  border-bottom: 1px solid #f3e1f8;
+#container #center #items #line {
+    display: flex;
+    padding: 0.2rem 0.4rem;
+    border-bottom: 1px solid #f3e1f8;
+}
+#container #center #theme_item {
+    flex: 1;
 }
 #center #office #office-title {
   color: #b93bf3;
@@ -181,9 +198,6 @@ export default {
 }
 #center #item #item-title a {
   color: #0541af;
-}
-#center #content #items #detail {
-  margin-top: 1vh;
 }
 #center #items #detail .col-name {
     color: #f16bf1;
@@ -193,7 +207,7 @@ export default {
 }
 #center #content #detail #info {
   padding-right: 0.8rem;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 #center #pagination li {
   display: inline; 
@@ -246,14 +260,26 @@ export default {
         margin: 1vh auto;
         width: 97%;
     }
-    #center #items #office, #center #items #item {
-      padding: 1vh 1vw;
+    #header {
+        padding: 0.3rem 0.2rem;
     }
-    #center #items #office #detail #more, #center #items #item #detail #more {
-      display: none;
+    #center #content #items {
+        padding: 0.2rem 0;
+    }
+    #container #center #items #line {
+        padding: 0.2rem;
+    }
+    #container #center #avatar img {
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-right: 0.5rem;
+        border-radius: 11%;
+    }
+    #center #items #office #detail, #center #items #item #detail {
+        margin-top: -0.2rem;
     }
     #container #rightside{
-      margin-top: 1rem;
+        margin-top: 1rem;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 850px) {
@@ -270,11 +296,14 @@ export default {
         width: 90%;
         margin-right: 1vw;
     }
+    #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.2rem 0.6rem 0 0;
+        border-radius: 11%;
+    }
     #container #rightside {
         flex: 1;
-    }
-    #center #items #office, #center #items #item {
-      padding: 1vh 0.8vw;
     }
 }
 @media only screen and (min-width: 850px) {
@@ -291,14 +320,17 @@ export default {
         width: 80%;
         margin-right: 1vw;
     }
-    #container #rightside {
-        flex: 1;
-    }
-    #center #items #office, #center #items #item {
-      padding: 1vh 0.5vw;
+    #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.2rem 0.6rem 0 0;
+        border-radius: 11%;
     }
     #center #items #office #office-title, #center #items #item #item-title {
-      font-size: 1.1rem;
+        font-size: 1.1rem;
+    }
+    #container #rightside {
+        flex: 1;
     }
 }
 </style>

@@ -73,7 +73,10 @@ impl Handler<ThemePageList> for ConnDsl {
                 }
                 let theme_user =  users::table.filter(users::id.eq(theme_one.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                 match theme_user {
-                    Some(user) => { themes_list_one.username = user.username;},
+                    Some(user) => { 
+                        themes_list_one.username = user.username;
+                        themes_list_one.user_avatar = user.avatar;
+                    },
                     None => { println!("No theme_user result");},
                 }
                 themes_list.push(themes_list_one);
@@ -115,8 +118,9 @@ impl Handler<ThemeId> for ConnDsl {
                     comment_list_one.created_at = comment.created_at;
                     let comment_user = users::table.filter(users::id.eq(comment.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                     match comment_user {
-                            Some(someuser) => {  
-                            comment_list_one.username = someuser.username; },
+                            Some(user) => {
+                                comment_list_one.user = user;
+                            },
                             None => { println!("No comment_user"); },
                     }
                     comment_list_one.rtime = time(Utc::now().naive_utc(), comment.created_at);

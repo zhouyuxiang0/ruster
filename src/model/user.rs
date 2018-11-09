@@ -4,13 +4,14 @@ use chrono::{Utc, NaiveDateTime};
 use model::response::{Msgs,MyError, SigninMsgs,UserIdMsgs, UserInfoMsgs,
                       UserThemesMsgs,UserCommentsMsgs,UserSavesMsgs,UserMessagesMsgs};
 
-#[derive(Debug,Serialize,Deserialize,PartialEq,Identifiable,Queryable)]
+#[derive(Clone,Debug,Serialize,Deserialize,PartialEq,Identifiable,Queryable)]
 pub struct User {
     pub id: i32,
     pub email: String,
     pub username: String,
     pub password: String,
     pub created_at: NaiveDateTime,
+    pub avatar: String,
 }
 
 #[derive(Debug,Serialize,Deserialize,Insertable)]
@@ -20,6 +21,7 @@ pub struct NewUser<'a> {
     pub username: &'a str,
     pub password: &'a str,
     pub created_at: NaiveDateTime,
+    pub avatar: &'a str,
 }
 
 #[derive(Deserialize,Serialize, Debug)]
@@ -125,6 +127,7 @@ impl User {
             username: "".to_string(),
             password: "".to_string(),
             created_at: Utc::now().naive_utc(),
+            avatar: "".to_string(),
         }
     }
 }

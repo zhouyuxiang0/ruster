@@ -2,6 +2,7 @@ use actix_web::{Error,actix::Message};
 use chrono::{Utc, NaiveDateTime};
 use utils::schema::{themes, comments,saves};
 use model::response::{ThemePageListMsgs, ThemeAndCommentsMsgs, BlogLikeMsgs,Msgs,BestPersonMsgs};
+use model::user::User;
 
 #[derive(Clone,Debug,Serialize,Deserialize,PartialEq,Queryable,QueryableByName)]
 #[table_name = "themes"]
@@ -110,6 +111,7 @@ pub struct ThemeListResult {
     pub category_name: String,
     pub category_name_cn: String,
     pub username: String,
+    pub user_avatar: String,
     pub rtime: String,
 }
 
@@ -120,7 +122,7 @@ pub struct CommentReturn {
     pub user_id: i32,
     pub content: String,
     pub created_at: NaiveDateTime,
-    pub username: String,
+    pub user: User,
     pub rtime: String,
 }
 #[derive(Deserialize,Serialize, Debug, Clone)]
@@ -181,6 +183,7 @@ impl ThemeListResult {
             category_name: "".to_string(),
             category_name_cn: "".to_string(),
             username: "".to_string(),
+            user_avatar: "".to_string(),
             rtime: "".to_string(),
         }
     }
@@ -194,7 +197,7 @@ impl CommentReturn {
             user_id: 0,
             content: "".to_string(),
             created_at: Utc::now().naive_utc(),
-            username: "".to_string(),
+            user: User::new(),
             rtime: "".to_string(),
         }
     }

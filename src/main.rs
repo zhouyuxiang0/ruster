@@ -17,6 +17,7 @@ extern crate postgres;
 extern crate timeago;
 extern crate pulldown_cmark;
 extern crate jsonwebtoken as jwt;
+extern crate md5;
 
 use actix_web::{server,actix::System};
 

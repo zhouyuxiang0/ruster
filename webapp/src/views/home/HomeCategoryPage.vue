@@ -25,7 +25,7 @@
                                     <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
                                     <span id="info">{{ theme.view_count }}</span>
                                     <span id="info"> {{ theme.rtime }} </span>
-                                    <span id="more">  ••  </span>
+                                    <!-- <span id="more">  ••  </span> -->
                                 </div> 
                             </div>
                       </div>
