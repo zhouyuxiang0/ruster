@@ -38,7 +38,7 @@ impl Handler<SignupUser> for ConnDsl {
                         };
                         let digest = compute(&signup_user.email);
                         let md5str = format!("{:x}", digest);
-                        let avatar_url = "http://www.gravatar.com/avatar/".to_string() + &md5str + "?s=150";
+                        let avatar_url = "http://www.gravatar.com/avatar/".to_string() + &md5str + "?s=128&d=identicon";
                         let new_user = NewUser {
                             email: &signup_user.email,
                             username: &signup_user.username,

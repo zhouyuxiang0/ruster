@@ -4,6 +4,7 @@ CREATE TABLE users (
   username TEXT NOT NULL,
   password TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  avatar TEXT NOT NULL DEFAULT '',
   UNIQUE (email, username)
 );
 
