@@ -1,6 +1,11 @@
 <template>
     <div id="usersave">
-      <div id="show"><img src="../../../static/imgs/rust.png" /></div>
+      <div id="head">
+        <div id="box">
+            <img :src= hourse_user.avatar />
+            <div id="word">In Rust - We Trust</div>
+        </div>
+      </div>
       <div id="title">
           <ul>
               <li><a :href="'/a/user/' + $route.params.id" id="theme-title">主题</a></li>
@@ -52,15 +57,16 @@ export default {
   data: function() {
     return {
       signin_user: '',
+      hourse_user: '',
       saves: ''
     }
   },
   mounted: function() {
-      if (localStorage.getItem('signin_user')){
-          this.signin_user = JSON.parse(localStorage.getItem('signin_user'))
-      }
-      let data = { user_id : Number.parseInt(this.$route.params.id)}
-      fetch(URLprefix + 'api/user/id/saves',{
+        if (localStorage.getItem('signin_user')){
+            this.signin_user = JSON.parse(localStorage.getItem('signin_user'))
+        }
+        let data = { user_id : Number.parseInt(this.$route.params.id)}
+        fetch(URLprefix + 'api/user/id/saves',{
                   body: JSON.stringify(data), 
                   headers: {
                     'content-type': 'application/json'
@@ -75,15 +81,32 @@ export default {
               .catch((e) => {
                 console.log(e)
               })
+
+        fetch(URLprefix + 'api/user_id',{
+                    body: JSON.stringify(data), 
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    method: 'POST',
+                    mode: 'cors'
+                }).then(response => response.json())
+                .then(json => {
+                    json.hourse_user.created_at = json.hourse_user.created_at.slice(0,10)
+                    this.hourse_user =  json.hourse_user
+                }).catch((e) => {
+                    console.log(e)
+                })
   },
 }
 </script>
 
 <style scoped>
-#show {
+#head {
     background-color: #f1a3d6;
 }
-
+#box {
+    display: flex;
+}
 #title {
     line-height: 3.3rem;
     background-color: #faeaf5;
@@ -99,7 +122,7 @@ export default {
     background-color: #ffffff;
 }
 #center #items #item {
-    padding: 1.2vh 0.5vw;
+    padding: 1.2vh 0.5rem;
     border-bottom: 1px solid #f3e1f8;
 }
 #center #items #item-title {
@@ -109,31 +132,43 @@ export default {
     font-size: 0.85rem;
 }
 @media only screen and (max-width: 600px) {
-  img {
-      margin: 1vh 2vw;
-      width: 5rem;
-      height: 5rem;
-      border-radius: 50%;
-  }
-  #title ul li {
-      display: inline-block;
-      padding-left: 3vw;
-      font-weight: bold;
-  }
-  main{
-      margin: 0 auto;
-      width: 97%;
-  }
+    img {
+        margin: 0.5rem;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+    }
+    #word {
+        padding: 2rem 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: green;
+    }
+    #title ul li {
+        display: inline-block;
+        padding-left: 3vw;
+        font-weight: bold;
+    }
+    main{
+        margin: 0 auto;
+        width: 97%;
+    }
 }
 @media only screen and (min-width: 600px) and (max-width: 850px) {
-  #show {
+    #head {
         padding-top: 5rem;
     }
     img {
-        margin-left: 8vw;
+        margin: auto 0 1rem 8vw;
         width: 7rem;
         height: 7rem;
         border-radius: 50%;
+    }
+    #word {
+        padding: 2rem;
+        font-size: 2rem;
+        font-weight: bold;
+        color: green;
     }
     #title ul {
         margin-left: 6vw;
@@ -163,14 +198,20 @@ export default {
     }
 }
 @media only screen and (min-width: 850px) {
-    #show {
+    #head {
         padding-top: 6rem;
     }
     img {
-        margin-left: 11vw;
+        margin: auto 0 1rem 12vw;
         width: 8rem;
         height: 8rem;
         border-radius: 50%;
+    }
+    #word {
+        padding: 3rem;
+        font-size: 2rem;
+        font-weight: bold;
+        color: green;
     }
     #title ul {
         margin-left: 10vw;
