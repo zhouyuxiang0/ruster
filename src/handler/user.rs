@@ -9,7 +9,7 @@ use model::user::{User, NewUser, SignupUser, SigninUser, UserInfo, UserUpdate, U
                   UserDelete, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
 use model::response::{Msgs, SigninMsgs, UserIdMsgs,UserInfoMsgs, UserThemesMsgs,UserCommentsMsgs,
                       UserSavesMsgs, UserMessagesMsgs};
-use router::ConnDsl;
+use model::db::ConnDsl;
 use model::message::Message;
 use model::theme::{Theme, Comment,Save};
 use share::common::Claims;

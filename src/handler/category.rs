@@ -4,7 +4,7 @@ use diesel::dsl::sql_query;
 use actix_web::{actix::Handler, error,Error};
 use chrono::Utc;
 use model::response::{CategorysMsgs, Msgs, ThemePageListMsgs};
-use router::ConnDsl;
+use model::db::ConnDsl;
 use model::theme::{Theme, Save, ThemeListResult};
 use model::user::User;
 use utils::{time, order_vec};

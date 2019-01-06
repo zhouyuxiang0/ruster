@@ -1,6 +1,6 @@
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, State, Json, AsyncResponder, FutureResponse};
 use futures::Future;
-use router::AppState;
+use share::common::AppState;
 use model::user::{SignupUser, SigninUser};
 
 pub fn signup((signup_user, state): (Json<SignupUser>, State<AppState>)) -> FutureResponse<HttpResponse> {

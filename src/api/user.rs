@@ -4,7 +4,7 @@ use jwt::{decode, Header, Algorithm, Validation};
 
 use share::common::Claims;
 use model::user::{UserInfo,UserId, UserDelete, UserUpdate, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
-use router::AppState;
+use share::common::AppState;
 
 
 pub fn user_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {

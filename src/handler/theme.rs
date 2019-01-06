@@ -9,7 +9,7 @@ use model::theme::{Theme,ThemePageList, ThemeListResult, ThemeId, NewTheme, Best
            ThemeNew, Comment, CommentReturn, NewComment, ThemeComment,BlogSave, Save,NewSave,BlogLike};
 use model::category::Category;
 use model::message::{Message, NewMessage};
-use router::ConnDsl;
+use model::db::ConnDsl;
 use model::user::User;
 use utils::{time, markdown2html, order_vec};
 use share::common::PAGE_SIZE;
