@@ -1,4 +1,4 @@
-# Ruster
+# Ruster  [![Build Status](https://travis-ci.org/rustlang-cn/ruster.svg?branch=master)](https://travis-ci.org/rustlang-cn/ruster)
 
 online community in rust for rust community
 
