@@ -34,7 +34,7 @@ fn main() {
     env_logger::init();
     let sys = System::new("ruster");
 
-    server::new( move || router::app())
+    server::new( move || router::app_state())
         .bind("localhost:8000").unwrap()
         .shutdown_timeout(2)
         .start();
