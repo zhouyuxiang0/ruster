@@ -35,7 +35,7 @@ fn main() {
     let sys = System::new("ruster");
 
     server::new( move || router::app_state())
-        .bind("localhost:8000").unwrap()
+        .bind("172.31.157.191:80").unwrap()
         .shutdown_timeout(2)
         .start();
 
