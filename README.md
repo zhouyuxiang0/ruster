@@ -28,7 +28,7 @@ online community in rust for rust community
 
 ## How To
 
-    first create a name 'ruster' postgresql database for this project.
+    first create a name 'ruster' postgresql database and a `dbuser` database account for this project. You should assure the `dbuser` is able to  use `ruster`. 
 
 ## when development/开发
 
@@ -75,10 +75,10 @@ $ cd webapp
 $ npm install
 $ npm run build          // 在root目录生成`pubilc`静态文件目录
 $ cd ..
-$ cargo build --release  // 在root/target目录生成`二进制文件`
+$ cargo build --release  // 在root/target目录生成二进制文件 `ruster`
 ```
 
-只需要将`二进制文件`(`Release`目录下的`ruster`)和`pubilc`一起放在任意同一目录下，然后`./ruster`
+只需要将`二进制文件`(`target/release`目录下的`ruster`)和`pubilc`一起放在任意同一目录下，然后`./ruster`
 
 ## Screen
 
