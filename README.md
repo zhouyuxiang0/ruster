@@ -73,12 +73,12 @@ $ cargo install diesel_cli --no-default-features --features postgres
 $ diesel setup
 $ cd webapp
 $ npm install
-$ npm run build          // 在root目录生成`Pubilc`静态文件目录
+$ npm run build          // 在root目录生成`pubilc`静态文件目录
 $ cd ..
 $ cargo build --release  // 在root/target目录生成`二进制文件`
 ```
 
-只需要将`二进制文件`和`Pubilc`一起放在任意同一目录下，然后./ruster
+只需要将`二进制文件`(`Release`目录下的`ruster`)和`pubilc`一起放在任意同一目录下，然后`./ruster`
 
 ## Screen
 
