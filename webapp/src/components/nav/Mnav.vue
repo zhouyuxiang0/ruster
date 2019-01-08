@@ -7,7 +7,7 @@
           <a id="front" href="/"><img src="../../../static/imgs/rust.png"/></a>
           <a id="name" href="/">Rust</a>
           <span id="dlnav">
-            <a id="tail" href="https://rustlang-cn.github.io" target="_blank">文档</a>
+            <a id="tail" href="https://rustlang-cn.org" target="_blank">文档</a>
             <!-- <a id="tail" href="">search</a> -->
           </span>
         </div>
