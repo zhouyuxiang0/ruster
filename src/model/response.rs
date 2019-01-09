@@ -98,8 +98,20 @@ pub struct BlogLikeMsgs {
 pub struct BestPersonMsgs {
     pub status: i32,
     pub message : String,
-    pub new_best : Vec<String>,
-    pub all_best : Vec<String>,
+    pub new_best : Vec<User>,
+    pub all_best : Vec<User>,
+}
+#[derive(Deserialize,Serialize, Debug)]
+pub struct AdminUsersMsgs {
+    pub status: i32,
+    pub message : String,
+    pub admin_users : Vec<User>,
+}
+#[derive(Deserialize,Serialize, Debug)]
+pub struct AdminThemesMsgs {
+    pub status: i32,
+    pub message : String,
+    pub admin_themes : Vec<Theme>,
 }
 
 impl ThemeAndCommentsMsgs {

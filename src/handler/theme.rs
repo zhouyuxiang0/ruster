@@ -9,7 +9,7 @@ use model::theme::{Theme,ThemePageList, ThemeListResult, ThemeId, NewTheme, Best
            ThemeNew, Comment, CommentReturn, NewComment, ThemeComment,BlogSave, Save,NewSave,BlogLike};
 use model::category::Category;
 use model::message::{Message, NewMessage};
-use model::db::ConnDsl;
+use router::ConnDsl;
 use model::user::User;
 use utils::{time, markdown2html, order_vec};
 use share::common::PAGE_SIZE;
@@ -223,41 +223,40 @@ impl Handler<ThemeComment> for ConnDsl {
         };
         if theme_comment.user_id != theme_comment.theme_user_id {
             diesel::insert_into(messages::table).values(&new_message).execute(conn).map_err(error::ErrorInternalServerError)?;
-           
+            // @别人（不是theme作者）
+            let reg = Regex::new(r"\B@([\d0-9A-Za-z_]+)").unwrap();
+            let mut mentions: Vec<u16> = Vec::new();
+            let comment_content = reg.replace_all(&(theme_comment.comment), |caps: &Captures| {
+                    let user_name = caps.get(1).unwrap().as_str();
+                    let user_result = users::table.filter(&(users::username).eq(&user_name)).load::<User>(conn).map_err(error::ErrorInternalServerError).unwrap();
+                    let to_user_id = (user_result[0].id) as u16;
+                    if to_user_id == 0 {
+                        format!("@{}", user_name)
+                    } else {
+                        mentions.push(to_user_id);
+
+                        format!("[@{}]({}{})", user_name, "/user/", user_name)
+                    }
+            });
+            if mentions.len() != 0 {
+                mentions.sort();
+                mentions.dedup();
+                for to_user_id in mentions.iter().filter(|&uid| *uid != ((theme_comment.theme_user_id) as u16) && *uid != ((theme_comment.user_id) as u16)) {
+                    let new_message = NewMessage {
+                        theme_id: theme_comment.theme_id,
+                        from_user_id: theme_comment.user_id,
+                        to_user_id: *to_user_id as i32,
+                        content: &theme_comment.comment,
+                        created_at: Utc::now().naive_utc(),
+                    };
+                    diesel::insert_into(messages::table).values(&new_message).execute(conn).map_err(error::ErrorInternalServerError)?;
+                }
+            } else {
+                println!("you @somebody no exist !");
+            }
         }else {
             println!("you comment yourelf's theme No need send message");
         }
-        // @别人（不是theme作者）
-        let reg = Regex::new(r"\B@([\d0-9A-Za-z_]+)").unwrap();
-        let mut mentions: Vec<u16> = Vec::new();
-        let comment_content = reg.replace_all(&(theme_comment.comment), |caps: &Captures| {
-                let user_name = caps.get(1).unwrap().as_str();
-                let user_result = users::table.filter(&(users::username).eq(&user_name)).load::<User>(conn).map_err(error::ErrorInternalServerError).unwrap();
-                let to_user_id = (user_result[0].id) as u16;
-                if to_user_id == 0 {
-                    format!("@{}", user_name)
-                } else {
-                    mentions.push(to_user_id);
-
-                    format!("[@{}]({})", user_name, user_name)
-                }
-        });
-        if  mentions.len() != 0 {
-            mentions.sort();
-            mentions.dedup();
-            for to_user_id in mentions.iter().filter(|&uid| *uid != ((theme_comment.theme_user_id) as u16) && *uid != ((theme_comment.user_id) as u16)) {
-                let new_message = NewMessage {
-                    theme_id: theme_comment.theme_id,
-                    from_user_id: theme_comment.user_id,
-                    to_user_id: *to_user_id as i32,
-                    content: &theme_comment.comment,
-                    created_at: Utc::now().naive_utc(),
-                };
-                diesel::insert_into(messages::table).values(&new_message).execute(conn).map_err(error::ErrorInternalServerError)?;
-            }
-        } else {
-            println!("you @somebody no exist !");
-        }    
         Ok(Msgs { 
                 status: 200,
                 message : "Comment Add Successful.".to_string(),
@@ -342,7 +341,7 @@ impl Handler<BestPerson> for ConnDsl {
                             }
                         }
                         let theme_new_ids_33:Vec<i32> = order_vec(page_one_id_result);
-                        let mut new_best: Vec<String> = vec![];
+                        let mut new_best: Vec<User> = vec![];
                         for index in theme_new_ids_33.iter() {
                             let theme_one_result = themes.filter(id.eq(*index)).load::<Theme>(conn).map_err(error::ErrorInternalServerError)?.pop();
                             match theme_one_result {
@@ -350,7 +349,7 @@ impl Handler<BestPerson> for ConnDsl {
                                         let theme_user =  users::table.filter(users::id.eq(theme_one.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                                         match theme_user {
                                             Some(user) => {
-                                                new_best.push((user.username).to_string());
+                                                new_best.push(user);
                                             },            
                                             None => { println!("No user result"); },
                                         }
@@ -364,7 +363,7 @@ impl Handler<BestPerson> for ConnDsl {
                         for (index,item) in theme_ids_result.iter().enumerate().filter(|&(idx, _)| idx < 11) {
                             page_all_ids_33.push(*item);
                         }
-                        let mut all_best: Vec<String> = vec![];
+                        let mut all_best: Vec<User> = vec![];
                         for index in page_all_ids_33.iter() {
                             let theme_one_result = themes.filter(id.eq(*index)).load::<Theme>(conn).map_err(error::ErrorInternalServerError)?.pop();
                             match theme_one_result {
@@ -372,7 +371,7 @@ impl Handler<BestPerson> for ConnDsl {
                                         let theme_user =  users::table.filter(users::id.eq(theme_one.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                                         match theme_user {
                                             Some(user) => {
-                                                all_best.push((user.username).to_string());
+                                                all_best.push(user);
                                             },            
                                             None => { println!("No user result"); },
                                         }
@@ -401,7 +400,7 @@ impl Handler<BestPerson> for ConnDsl {
                             }
                         }
                         let theme_new_ids:Vec<i32> = order_vec(page_one_id_result);
-                        let mut new_best: Vec<String> = vec![];
+                        let mut new_best: Vec<User> = vec![];
                         for index in theme_new_ids.iter() {
                             let theme_one_result = themes.filter(id.eq(*index)).load::<Theme>(conn).map_err(error::ErrorInternalServerError)?.pop();
                             match theme_one_result {
@@ -409,7 +408,7 @@ impl Handler<BestPerson> for ConnDsl {
                                         let theme_user =  users::table.filter(users::id.eq(theme_one.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                                         match theme_user {
                                             Some(user) => {
-                                                new_best.push((user.username).to_string());
+                                                new_best.push(user);
                                             },            
                                             None => { println!("No user result"); },
                                         }
@@ -419,7 +418,7 @@ impl Handler<BestPerson> for ConnDsl {
                         }
 
                         // 一直最美的前11人===========================
-                        let mut all_best: Vec<String> = vec![];
+                        let mut all_best: Vec<User> = vec![];
                         for index in theme_ids_result.iter() {
                             let theme_one_result = themes.filter(id.eq(*index)).load::<Theme>(conn).map_err(error::ErrorInternalServerError)?.pop();
                             match theme_one_result {
@@ -427,7 +426,7 @@ impl Handler<BestPerson> for ConnDsl {
                                         let theme_user =  users::table.filter(users::id.eq(theme_one.user_id)).load::<User>(conn).map_err(error::ErrorInternalServerError)?.pop();
                                         match theme_user {
                                             Some(user) => {
-                                                all_best.push((user.username).to_string());
+                                                all_best.push(user);
                                             },            
                                             None => { println!("No user result"); },
                                         }

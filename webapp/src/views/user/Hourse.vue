@@ -41,15 +41,20 @@
                     <p>注册排名:第{{ hourse_user.id }}位</p>
                     
                     <div v-if="current_user != ''" id="userself">
-                        <button id="submit"  @click="update">账号更新</button><br/>
+                        <button id="submit"  @click="updateuser">账号更新</button><br/>
                         <!--<button id="submit"  @click="deleteme">账号删除</button><br/>-->
+                        <button id="submit"  @click="updateuserimg">头像更新</button><br/>
 
                         <div id="update" v-if="userupdate == true">
                             <p>账号更新</p> 
                                 <input type="email" name="newmail" placeholder="新邮箱" v-model="Newmail"  required /><br/>
                                 <input type="password" name="newpassword" placeholder="新密码" v-model="Newpassword"  required/><br/>
                                 <input type="password" name="confirm_newpassword" placeholder="确认新密码" v-model="ConfirmNewpassword"  required/><br/>
-                                <button id="submit" @click="submitnow">更新</button>
+                                <button id="submit" @click="submitnow">确认更新</button>
+                        </div>
+                        <div id="update" v-if="userimgupdate == true">
+                            <p style="border:1px solid green;margin-bottom:0.2rem;"><span style="color:red;">提醒</span>：请先确认你在<a href="https://en.gravatar.com/" target="_blank">gravatar</a>网站注册时使用的邮箱和本站一致且已上传个人头像</p>
+                            <button id="submit" @click="submitimgnow">确认更新</button>
                         </div>
                     </div>
                 </div>
@@ -78,10 +83,12 @@ export default {
       current_user: '',
       Newname: '',
       Newmail: '',
+      Youmail: '',
       Newpassword: '',
       ConfirmNewpassword: '',
       signin_user: '',
       userupdate: false,
+      userimgupdate: false,
       theme_list: ''
     }
   },
@@ -131,14 +138,20 @@ export default {
                 }).then(response => response.json())
                 .then(json => {
                     json.hourse_user.created_at = json.hourse_user.created_at.slice(0,10)
+                    if (json.hourse_user.avatar == "") {
+                        json.hourse_user.avatar = "https://www.gravatar.com/avatar/1"
+                    }
                     this.hourse_user =  json.hourse_user
                 }).catch((e) => {
                     console.log(e)
                 })
   },
   methods: {
-    update() {
+    updateuser() {
         this.userupdate = true
+    },
+    updateuserimg() {
+        this.userimgupdate = true
     },
     submitnow() {
         if (localStorage.getItem('token')){
@@ -163,6 +176,29 @@ export default {
             }).then(response => response.json())
             .then(json => {
                     this.userupdate = false
+                    window.location.reload ( true )
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+    },
+    submitimgnow() {
+        if (localStorage.getItem('token')){
+            let signin_user = JSON.parse(localStorage.getItem('signin_user'))
+            var youmail = this.Youmail
+            let data = { 
+                user_id: signin_user.id,
+            }
+            fetch(URLprefix + 'api/user_update_img', {
+                  body: JSON.stringify(data), 
+                  headers: {
+                    'content-type': 'application/json'
+                  },
+                  method: 'POST',
+            }).then(response => response.json())
+            .then(json => {
+                    this.userimgupdate = false
                     window.location.reload ( true )
             })
             .catch((e) => {
@@ -321,7 +357,7 @@ button, #aside #update input {
         color: green;
     }
     #title ul {
-        margin-left: 11vw;
+         margin-left: 11vw;
     }
     #title ul li{
         display: inline-block;

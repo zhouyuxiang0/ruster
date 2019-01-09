@@ -1,7 +1,7 @@
 use actix_web::{Error,actix::Message};
 use utils::schema::users;
 use chrono::{Utc, NaiveDateTime};
-use model::response::{Msgs,MyError, SigninMsgs,UserIdMsgs, UserInfoMsgs,
+use model::response::{Msgs,MyError, SigninMsgs,UserIdMsgs, UserInfoMsgs, AdminUsersMsgs,
                       UserThemesMsgs,UserCommentsMsgs,UserSavesMsgs,UserMessagesMsgs};
 
 #[derive(Clone,Debug,Serialize,Deserialize,PartialEq,Identifiable,Queryable)]
@@ -35,7 +35,7 @@ pub struct SignupUser {
 pub struct SigninUser {
     pub username: String,
     pub password: String,
-    pub code: u32,
+    pub code: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -54,6 +54,10 @@ pub struct UserUpdate {
     pub newmail: String,
     pub newpassword: String,
     pub confirm_newpassword: String,
+}
+#[derive(Deserialize,Serialize, Debug)]
+pub struct UserUpdateImg {
+    pub user_id: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -81,6 +85,8 @@ pub struct UserMessagesReadall{
     pub user_id: i32,
     pub messages_unread_ids: Vec<i32>,
 }
+#[derive(Deserialize,Serialize, Debug)]
+pub struct AdminUsers;
 
 impl Message for SignupUser {
     type Result = Result<Msgs, Error>;
@@ -100,6 +106,9 @@ impl Message for UserId {
 impl Message for UserUpdate {
     type Result = Result<Msgs, Error>;
 }
+impl Message for UserUpdateImg {
+    type Result = Result<Msgs, Error>;
+}
 impl Message for UserDelete {
     type Result = Result<Msgs, MyError>;
 }
@@ -117,6 +126,9 @@ impl Message for UserMessages {
 }
 impl Message for UserMessagesReadall {
     type Result = Result<Msgs, Error>;
+}
+impl Message for AdminUsers {
+    type Result = Result<AdminUsersMsgs, Error>;
 }
 
 impl User {

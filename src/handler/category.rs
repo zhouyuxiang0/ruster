@@ -4,7 +4,7 @@ use diesel::dsl::sql_query;
 use actix_web::{actix::Handler, error,Error};
 use chrono::Utc;
 use model::response::{CategorysMsgs, Msgs, ThemePageListMsgs};
-use model::db::ConnDsl;
+use router::ConnDsl;
 use model::theme::{Theme, Save, ThemeListResult};
 use model::user::User;
 use utils::{time, order_vec};
@@ -91,6 +91,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                 match theme_user {
                     Some(user) => {
                         category_themes_list_one.username = user.username;
+                        category_themes_list_one.user_avatar = user.avatar;
                         category_themes_list.push(category_themes_list_one);
                     },            
                     None => { println!("No user result"); },
@@ -162,6 +163,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                                         match theme_user {
                                             Some(user) => {
                                                 category_themes_list_one.username = user.username;
+                                                category_themes_list_one.user_avatar = user.avatar;
                                                 category_themes_list.push(category_themes_list_one);
                                             },            
                                             None => { println!("No user result"); },
@@ -216,6 +218,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                                         match theme_user {
                                             Some(user) => {
                                                 category_themes_list_one.username = user.username;
+                                                category_themes_list_one.user_avatar = user.avatar;
                                                 category_themes_list.push(category_themes_list_one);
                                             },            
                                             None => { println!("No user result"); },
@@ -266,6 +269,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                                     match theme_user {
                                         Some(user) => {
                                             category_themes_list_one.username = user.username;
+                                            category_themes_list_one.user_avatar = user.avatar;
                                             category_themes_list.push(category_themes_list_one);
                                         },            
                                         None => { println!("No user result"); },
@@ -305,6 +309,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                                         match theme_user {
                                             Some(user) => {
                                                 category_themes_list_one.username = user.username;
+                                                category_themes_list_one.user_avatar = user.avatar;
                                                 category_themes_list.push(category_themes_list_one);
                                             },            
                                             None => { println!("No user result"); },
@@ -341,6 +346,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                                         match theme_user {
                                             Some(user) => {
                                                 category_themes_list_one.username = user.username;
+                                                category_themes_list_one.user_avatar = user.avatar;
                                                 category_themes_list.push(category_themes_list_one);
                                             },            
                                             None => { println!("No user result"); },
@@ -401,6 +407,7 @@ impl Handler<CategoryThemePageList> for ConnDsl {
                 match theme_user {
                     Some(user) => {
                         category_themes_list_one.username = user.username;
+                        category_themes_list_one.user_avatar = user.avatar;
                         category_themes_list.push(category_themes_list_one);
                     },            
                     None => { println!("No user result"); },

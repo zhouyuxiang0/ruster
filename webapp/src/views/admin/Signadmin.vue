@@ -1,18 +1,19 @@
 <template>
-  <div id="signin">
+  <div id="signadmin">
       <div id="content">
           <div id="title">    
-            <router-link to="/a/signin">登录</router-link>&emsp;|&emsp;
+            <router-link to="/a/signin">登陆</router-link>&emsp;|&emsp;
             <router-link to="/a/signup">注册</router-link> 
           </div>
             <input type="text" name="username" placeholder="用户名" v-model="Username" />
-            <input type="password" name="password" placeholder="密码" v-model="Password" /><br/>
+            <input type="password" name="password" placeholder="密码" v-model="Password" />
+            <input type="text" name="code" placeholder="代码" v-model="Acode" />
           <div>
               <div id="v_container" style="height: 44px;"></div>
-              <input type="text" id="code_input" value="" placeholder="请输入上方验证码" style="width: 70%;"/>
-              <span><button id="verify" >点击验证</button></span>
+              <input type="text" id="code_input" value="" placeholder="请输入上方验证码" style="width: 80%;"/>
+              <span><button id="verify" >验证</button></span>
           </div>
-          <button id="submit" @click="signin">登录</button><br/>
+          <button id="submit" @click="signin">登陆</button>
       </div>
   </div>
 </template>
@@ -23,14 +24,15 @@ import URLprefix from '../../config'
 import  '../../../static/js/gVerify.js'
 import Mnav from '../../components/nav/Mnav'
 export default {
-  name: 'signin',
+  name: 'signadmin',
   components: {
     "mnav": Mnav
   },
   data () {
     return {
       Username: '',
-      Password: ''
+      Password: '',
+      Acode: ''
     }
   },
   mounted: function() {
@@ -39,10 +41,10 @@ export default {
       var res = verifyCode.validate(document.getElementById("code_input").value);
       if (res) {
         let verify = document.getElementById("verify")
-        verify.innerHTML = "验证成功"
+        verify.innerHTML = "成功"
       } else {
         let verify = document.getElementById("verify")
-        verify.innerHTML = "重新验证"
+        verify.innerHTML = "失败"
       }
     }
   },
@@ -50,12 +52,17 @@ export default {
     signin () {
       let uname = this.Username
       let password = this.Password
+      let acode = this.Acode;
       let data = { 
           username: uname,
           password: password,
-          code: "00",
+          code: acode,
       }
-      if (document.getElementById("verify").innerHTML == "验证成功") {
+      if (document.getElementById("verify").innerHTML == "成功") {
+          if (acode.length == ''){
+              alert("代码不能为空.")
+              return
+          }else{
             fetch(URLprefix + 'user/signin', {
                   body: JSON.stringify(data), 
                   headers: {
@@ -68,9 +75,8 @@ export default {
                     if (json.status == 200) {
                         localStorage.setItem('token',json.token);
                         localStorage.setItem('signin_user',JSON.stringify(json.signin_user));
-                        window.location.reload ( true );
-                        // setTimeOut("functionName()",2000);
-                        this.$router.push('/');
+                        window.location.reload ( true ); 
+                        this.$router.push('/a/xyzruster/allinfo')
                     }else{
                         alert(json.message)
                     }
@@ -78,8 +84,9 @@ export default {
               .catch((e) => {
                 console.log(e)
               })
+          }
       }else{
-          alert("请先成功通过验证码再登录.")
+          alert("请先成功通过验证码再登陆.")
       }
               
     }
@@ -111,7 +118,7 @@ input[type="password"] {
   font-size: 16px;
 }
 #verify {
-  width: 30%; 
+  width: 20%; 
   padding: 6px 0;
   font-size: 1rem;
   background-color: bisque;

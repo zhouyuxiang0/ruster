@@ -7,9 +7,9 @@
                         <div id="title">
                             <h2> {{ theme.title }} </h2> 
                             <span id="info"><a :href="'/a/home/' + theme_category_name">{{ theme_category_name_cn }}</a></span> • 
-                            <span id="info"><a :href="'/a/user/' + theme_user.id">{{ theme_user.username }}</a></span> •   
+                            <span id="info"><a :href="'/a/user/' + theme_user.id">{{ theme_user.username }}</a></span> •  
                             <span id="info">{{ theme_rtime }}</span>
-                            <span v-if="signin_user.username == theme_user.username" id="info"><a :href="'/a/'+ theme_category_name + '/edit/' + theme.id">&nbsp;• 编辑</a></span>  
+                            <span v-if="signin_user.username == theme_user.username" id="info"><a :href="'/a/'+ theme_category_name + '/edit/' + theme.id">&nbsp;• 编辑</a></span> 
                         </div>
                         <div id="content" v-html="theme.content" v-highlight> </div>
                     </div>
@@ -116,15 +116,12 @@ export default {
     mounted: function() {
         if (localStorage.getItem('signin_user')){
             this.signin_user = JSON.parse(localStorage.getItem('signin_user'))
-        }else{
-            return 
         }
         fetch(URLprefix + 'api/theme/'+ this.$route.params.id,{
             method: 'GET',
         }).then(response => response.json())
         .then(json => {
             this.theme = json.theme
-            console.log(json.theme)
             this.theme_user = json.theme_user
             this.theme_rtime = json.theme_rtime
             this.theme_category_name_cn = json.theme_category_name_cn
@@ -231,7 +228,7 @@ export default {
     line-height: 1.3rem;
     font-size: 0.9rem;
 }
-#main #center #comment #detail #info {
+#main #center #comment #detail #info{
     font-size: 14px;
 }
 #main #center h1,
@@ -322,7 +319,7 @@ export default {
         width: 2.5rem;
         height: 2.5rem;
         margin: 0.1rem 0.4rem 0 0;
-        border-radius: 11%;
+        border-radius: 50%;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 850px) {
@@ -343,7 +340,7 @@ export default {
         width: 2.5rem;
         height: 2.5rem;
         margin: 0.1rem 0.4rem 0 0;
-        border-radius: 11%;
+        border-radius: 50%;
     }
     #main #container #side {
         flex: 1;
@@ -370,7 +367,7 @@ export default {
         width: 2.6rem;
         height: 2.6rem;
         margin: 0 0.5rem 0 0;
-        border-radius: 11%;
+        border-radius: 50%;
     }
     #main #container #side {
         flex: 1;

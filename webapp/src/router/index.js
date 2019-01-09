@@ -31,6 +31,10 @@ function main(router) {
             { path: '/a/user/:id/save', name: 'usersave', component: (resolve) => require(['../views/user/Save'], resolve) },
             { path: '/a/user/:id/message', name: 'usermessage', component: (resolve) => require(['../views/user/Message'], resolve) },
         { path: '/a/help', name: 'help', component: (resolve) => require(['../views/help/Help'], resolve) },
+        { path: '/a/rustlangcn/allinfo', name: 'allinfo', component: (resolve) => require(['../views/admin/Admin'], resolve) },
+        { path: '/a/rustlangcn/signadmin', name: 'signadmin', component: (resolve) => require(['../views/admin/Signadmin'], resolve) },
+        { path: '/a/rustlangcn/themeinfo', name: 'themeinfo', component: (resolve) => require(['../views/admin/Themeinfo'], resolve) },
+        { path: '/a/rustlangcn/userinfo', name: 'userinfo', component: (resolve) => require(['../views/admin/Userinfo'], resolve) },
         { path: '*', name: 'notfound', component: (resolve) => require(['../views/notfound/NotFound'], resolve) },
     ])
 }

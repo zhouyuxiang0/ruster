@@ -16,10 +16,13 @@ extern crate http;
 extern crate postgres;
 extern crate timeago;
 extern crate pulldown_cmark;
+extern crate openssl;
 extern crate jsonwebtoken as jwt;
 extern crate md5;
+extern crate ring;
 
 use actix_web::{server,actix::System};
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 mod api;
 mod handler;
@@ -29,13 +32,17 @@ mod utils;
 mod router;
 
 fn main() {
-    ::std::env::set_var("RUST_LOG", "ruster=info");
+    ::std::env::set_var("RUST_LOG", "rustlang-cn=info");
     ::std::env::set_var("RUST_BACKTRACE", "1");
     env_logger::init();
-    let sys = System::new("ruster");
+    let sys = System::new("rustlang-cn");
 
-    server::new( move || router::app_state())
-        .bind("172.31.157.191:80").unwrap()
+    // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    // builder.set_private_key_file("privkey.pem", SslFiletype::PEM).unwrap();
+    // builder.set_certificate_chain_file("fullchain.pem").unwrap();
+
+    server::new( move || router::app())
+         .bind("localhost:8000").unwrap()
         .shutdown_timeout(2)
         .start();
 

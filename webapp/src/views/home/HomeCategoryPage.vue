@@ -15,7 +15,13 @@
               </div>
               <div id="content">
                       <div id="items" v-for="(theme, index) in theme_list" :key="index">
-                            <div id="item">
+                            
+                          <div id="line">
+                            <di id="avatar">
+                              <a :href="'/a/user/' + theme.user_id"><img :src= theme.user_avatar ></a>
+                            </di>
+                            <div id="theme_item">  
+                              <div id="item">
                                 <div id="item-title">
                                   <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
                                 </div>
@@ -27,7 +33,9 @@
                                     <span id="info"> {{ theme.rtime }} </span>
                                     <!-- <span id="more">  ••  </span> -->
                                 </div> 
+                              </div>                        
                             </div>
+                          </div>
                       </div>
               </div>
               <div v-if="$route.params.number <= page_count">
@@ -101,6 +109,11 @@ export default {
                   mode: 'cors'
               }).then(response => response.json())
               .then(json => {
+                  json.theme_list.map((item) => {
+                      if (item.user_avatar == "") {
+                        item.user_avatar = "https://www.gravatar.com/avatar/1"
+                      }
+                  })
                   this.theme_list = json.theme_list
                   this.page_count = json.theme_page_count
                   this.half_count = Math.ceil(json.theme_page_count/2)
@@ -128,24 +141,23 @@ export default {
   font-weight: bold;
   margin-right: 1rem;
 }
-#center #items #item {
-  border-bottom: 1px solid #f3e1f8;
+#center #items #line {
+    display: flex;
+    padding: 0.2rem 0.4rem;
+    border-bottom: 1px solid #f3e1f8;
 }
-#center #item #item-title a {
+#center #theme_item {
+    flex: 1;
+}
+#center #item a {
   color: #0541af;
-}
-#center #content #items #detail {
-    margin-top: 1vh;
 }
 #center #items #detail .col-name {
     color: #f16bf1;
 }
-#center #items #detail a {
-  color: #0541af;
-}
 #center #content #detail #info {
   padding-right: 0.8rem;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 #center #pagination li {
   display: inline; 
@@ -167,11 +179,20 @@ export default {
         margin: 2vh auto;
         width: 97%;
     }
-    #center #items #item {
-      padding: 1vh 1vw;
+    #header {
+        padding: 0.3rem 0.2rem;
     }
-    #center #items #item #detail #more {
-      display: none;
+    #center #content #items {
+        padding: 0.2rem 0;
+    }
+    #center #content #items #line {
+        padding: 0.2rem;
+    }
+    #center #avatar img {
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-right: 0.5rem;
+        border-radius: 50%;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 850px) {
@@ -188,11 +209,17 @@ export default {
         width: 90%;
         margin-right: 1vw;
     }
+    #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.2rem 0.6rem 0 0;
+        border-radius: 50%;
+    }
+    #center #items #office #detail, #center #items #item #detail {
+        margin-top: -0.2rem;
+    }
     #container #side {
         flex: 1;
-    }
-    #center #items #item {
-      padding: 1vh 0.8vw;
     }
 }
 @media only screen and (min-width: 850px) {
@@ -209,14 +236,17 @@ export default {
         width: 80%;
         margin-right: 1vw;
     }
-    #container #side {
-        flex: 1;
-    }
-    #center #items #item {
-      padding: 1vh 0.5vw;
+    #container #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.2rem 0.6rem 0 0;
+        border-radius: 50%;
     }
     #center #items #item #item-title {
       font-size: 1.1rem;
+    }
+    #container #side {
+        flex: 1;
     }
 }
         

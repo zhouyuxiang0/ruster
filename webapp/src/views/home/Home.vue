@@ -19,7 +19,7 @@
                             <di id="avatar">
                               <a :href="'/a/user/' + theme.user_id"><img :src= theme.user_avatar ></a>
                             </di>
-                            <di id="theme_item">  
+                            <div id="theme_item">  
                               <div id="office" v-if="theme.category_name === 'office'">
                                   <div id="office-title">
                                     <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
@@ -44,7 +44,7 @@
                                       <span id="info"> {{ theme.rtime }} </span>
                                   </div>
                               </div>
-                            </di>
+                            </div>
                           </div>
                       </div>
               </div>
@@ -74,7 +74,7 @@
                     </div>
                     <ul>
                       <div id="bestperson" v-for="(new_person,index) in new_best" :key="index">
-                        <li>{{new_person}}</li><li>&emsp;<strong>|</strong>&emsp;</li><li>{{all_best[index]}}</li>
+                        <li><a :href="'/a/user/' + new_person.id">{{new_person.username}}</a></li><li>&emsp;<strong>|</strong>&emsp;</li><li><a :href="'/a/user/' + all_best[index].id">{{all_best[index].username}}</a></li>
                       </div>
                     </ul>
                 </div>
@@ -159,7 +159,7 @@ export default {
                   mode: 'cors'
               }).then(response => response.json())
               .then(json => {
-                  json.ruster_info[0] = json.ruster_info[0]
+                  json.ruster_info[0] = 90 + json.ruster_info[0]
                    this.ruster_info = json.ruster_info
               })
               .catch((e) => {
@@ -196,14 +196,11 @@ export default {
   color: #b93bf3;
   font-weight: bold;
 }
-#center #item #item-title a {
+#center #item a {
   color: #0541af;
 }
 #center #items #detail .col-name {
     color: #f16bf1;
-}
-#center #items #detail a {
-  color: #0541af;
 }
 #center #content #detail #info {
   padding-right: 0.8rem;
@@ -273,7 +270,7 @@ export default {
         width: 2.4rem;
         height: 2.4rem;
         margin-right: 0.5rem;
-        border-radius: 11%;
+        border-radius: 50%;
     }
     #center #items #office #detail, #center #items #item #detail {
         margin-top: -0.2rem;
@@ -300,7 +297,7 @@ export default {
         width: 2.5rem;
         height: 2.5rem;
         margin: 0.2rem 0.6rem 0 0;
-        border-radius: 11%;
+        border-radius: 50%;
     }
     #container #rightside {
         flex: 1;
@@ -324,10 +321,10 @@ export default {
         width: 2.5rem;
         height: 2.5rem;
         margin: 0.2rem 0.6rem 0 0;
-        border-radius: 11%;
+        border-radius: 50%;
     }
     #center #items #office #office-title, #center #items #item #item-title {
-        font-size: 1.1rem;
+      font-size: 1.1rem;
     }
     #container #rightside {
         flex: 1;

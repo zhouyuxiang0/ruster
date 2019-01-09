@@ -89,6 +89,9 @@ export default {
                 }).then(response => response.json())
                 .then(json => {
                     json.hourse_user.created_at = json.hourse_user.created_at.slice(0,10)
+                    if (json.hourse_user.avatar == "") {
+                        json.hourse_user.avatar = "https://www.gravatar.com/avatar/1"
+                    }
                     this.hourse_user =  json.hourse_user
                 }).catch((e) => {
                     console.log(e)
@@ -211,7 +214,7 @@ export default {
         color: green;
     }
     #title ul {
-        margin-left: 10vw;
+        margin-left: 11vw;
     }
     #title ul li{
         display: inline-block;

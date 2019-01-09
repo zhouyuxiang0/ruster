@@ -9,10 +9,10 @@
                             <span v-else id="saved">已收藏</span>
                             <span id="like">喜欢 <span id="likeid">{{like}} </span> </span>
                             <span id="right"> 
-                            <span id="info" class="first"><a :href="'/a/home/' + theme_category_name">博客</a></span> • 
-                            <span id="info"><a :href="'/a/user/' + theme_user.id">{{ theme_user.username }}</a></span> •   
-                            <span id="info">{{ theme_rtime }}</span>
-                            <span v-if="signin_user.username == theme_user.username" id="info"><a :href="'/a/'+ theme_category_name + '/edit/' + theme.id">&nbsp;• 编辑</a></span> 
+                                <span id="info" class="first"><a :href="'/a/home/' + theme_category_name">博客</a></span> • 
+                                <span id="info"><a :href="'/a/user/' + theme_user.id">{{ theme_user.username }}</a></span> •   
+                                <span id="info">{{ theme_rtime }}</span>
+                                <span v-if="signin_user.username == theme_user.username" id="info"><a :href="'/a/'+ theme_category_name + '/edit/' + theme.id">&nbsp;• 编辑</a></span> 
                             </span>
                     </div>
                 </div>
@@ -25,11 +25,17 @@
                         <div id="count">评论 &nbsp; {{ theme.comment_count }} </div>
                         <div v-for="(comment, index) in theme_comments" :key="index">
                             <div id="detail">
-                                <div id="infos">
-                                    <span id="info" >{{ index + 1 }}&nbsp;</span>
-                                    <span id="info"><a :href="'/a/user/' + comment.user_id">{{ comment.username }}</a></span> • <span id="info">{{ comment.rtime }}</span>
+                                <di id="avatar">
+                                    <a :href="'/a/user/' + comment.user.id"><img :src= comment.user.avatar ></a>
+                                </di>
+                                <div id="comment_item"> 
+                                    <div id="infos">
+                                        <span id="info" >{{ index + 1 }}&nbsp;</span>
+                                        <span id="info"><a :href="'/a/user/' + comment.user_id">{{ comment.user.username }}</a></span> • 
+                                        <span id="info">{{ comment.rtime }}</span>
+                                    </div>
+                                    <div id="content" v-html="comment.content" v-highlight> </div>
                                 </div>
-                                <div id="content" v-html="comment.content" v-highlight> </div>
                             </div>
                         </div>
                     </div>
@@ -168,6 +174,11 @@ export default {
             this.theme_user = json.theme_user
             this.theme_rtime = json.theme_rtime
             this.theme_category_name = json.theme_category_name
+            json.theme_comments.map((item) => {
+                if (item.user.avatar == "") {
+                    item.user.avatar = "https://www.gravatar.com/avatar/1"
+                }
+            })
             this.theme_comments = json.theme_comments
         }).catch((e) => {
             console.log(e)
@@ -268,15 +279,21 @@ export default {
     border-bottom: 1px solid rgb(223, 223, 223);
 }
 #theblog #center #comment #detail {
-    padding: 0.3rem 0.6rem;
+    display: flex;
+    padding: 0.3rem 0.5rem 0;
     border-bottom: 1px solid rgb(223, 223, 223);
+}
+#theblog #center #comment #detail #comment_item {
+    flex: 1;
+}
+#theblog #center #comment #detail #infos, #theblog #center #comment #detail #content {
+    margin-top: -0.3rem;
 }
 #theblog #center #comment #content {
     line-height: 1.3rem;
     font-size: 0.9rem;
 }
 #theblog #center #comment #detail #info{
-    display: inline-block;
     font-size: 14px;
 }
 #theblog #reply #messagenote {
@@ -310,16 +327,17 @@ export default {
     width: 100%;
 }
 #theblog #center ul li {
+    margin: 1vh 0;
+    padding: 0 0.5vw;
+    border-left: 2px solid var(--purple);
+}
+#theblog #center ol li {
     margin: auto 1.5rem;
     list-style-type:square;
 }
-#theblog #center ol li {
+#theblog #center table {
     margin: auto 1.6rem;
     list-style-type:decimal;
-}
-#theblog #center table {
-    padding: 0.3rem;
-    border: 2px solid  #aaa;
 }
 #theblog #center table td {
     padding: 0.5rem;
@@ -395,6 +413,12 @@ export default {
         font-size: 0.85rem;
         margin-left: 0.5rem;
     }
+    #theblog #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.1rem 0.4rem 0 0;
+        border-radius: 50%;
+    }
     #theblog #mei #title #right {
         float: right;
         font-size: 0.85rem;
@@ -436,6 +460,12 @@ export default {
         font-size: 1rem;
         margin-right: 2rem;
     }
+    #theblog #center #avatar img {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0.1rem 0.4rem 0 0;
+        border-radius: 50%;
+    }
 }
 @media only screen and (min-width: 850px) {
     #theblog {
@@ -471,6 +501,12 @@ export default {
         float: right;
         font-size: 0.9rem;
         margin-right: 2rem;
+    }
+    #theblog #center #avatar img {
+        width: 2.6rem;
+        height: 2.6rem;
+        margin: 0 0.5rem 0 0;
+        border-radius: 50%;
     }
 }
 </style>

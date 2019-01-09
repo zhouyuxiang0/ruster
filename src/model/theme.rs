@@ -1,8 +1,8 @@
 use actix_web::{Error,actix::Message};
 use chrono::{Utc, NaiveDateTime};
 use utils::schema::{themes, comments,saves};
-use model::response::{ThemePageListMsgs, ThemeAndCommentsMsgs, BlogLikeMsgs,Msgs,BestPersonMsgs};
 use model::user::User;
+use model::response::{ThemePageListMsgs, ThemeAndCommentsMsgs, BlogLikeMsgs,Msgs,BestPersonMsgs,AdminThemesMsgs};
 
 #[derive(Clone,Debug,Serialize,Deserialize,PartialEq,Queryable,QueryableByName)]
 #[table_name = "themes"]
@@ -96,6 +96,8 @@ pub struct BlogLike {
     pub theme_id : i32,
     pub user_id : i32,
 }
+#[derive(Deserialize,Serialize, Debug,Clone)]
+pub struct AdminThemes;
 
 #[derive(Deserialize,Serialize, Debug,Clone)]
 pub struct ThemeListResult {
@@ -150,6 +152,9 @@ impl Message for BlogLike {
 }
 impl Message for BestPerson {
     type Result = Result<BestPersonMsgs, Error>;
+}
+impl Message for AdminThemes {
+    type Result = Result<AdminThemesMsgs, Error>;
 }
 
 impl Theme {

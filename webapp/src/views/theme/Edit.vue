@@ -114,6 +114,7 @@ export default {
                         method: 'POST',
                     }).then(response => response.json())
                     .then(json => {
+                        // return
                         this.$router.push('/')
                     })
                     .catch((e) => {

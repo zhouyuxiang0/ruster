@@ -141,7 +141,7 @@ export default {
                     method: 'POST',
                 }).then(response => response.json())
                 .then(json => {
-                    this.$router.push('/')
+                   this.$router.push('/')
                 })
                 .catch((e) => {
                     console.log(e)

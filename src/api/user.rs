@@ -2,9 +2,9 @@ use actix_web::{HttpMessage, HttpRequest, HttpResponse, State, Json, AsyncRespon
 use futures::future::Future;
 use jwt::{decode, Header, Algorithm, Validation};
 
+use model::user::{UserInfo,UserId, UserDelete, UserUpdate, UserUpdateImg, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
+use router::AppState;
 use share::common::Claims;
-use model::user::{UserInfo,UserId, UserDelete, UserUpdate, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
-use share::common::AppState;
 
 
 pub fn user_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
@@ -38,7 +38,7 @@ pub fn user_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                         Err(_) => Ok(HttpResponse::InternalServerError().into())
                     }
                 }).responder()
-        }
+        },
     }
 }
 
@@ -86,7 +86,7 @@ pub fn user_delete(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                         Err(_) => Ok(HttpResponse::InternalServerError().into())
                     }
                 }).responder()
-        }
+        },
     }
 }
 
@@ -97,6 +97,19 @@ pub fn user_update((user_update, state): (Json<UserUpdate>, State<AppState>)) ->
         newmail: user_update.newmail.clone(),
         newpassword: user_update.newpassword.clone(),
         confirm_newpassword: user_update.confirm_newpassword.clone(),
+    })
+        .from_err()
+        .and_then(|res| {
+            match res {
+                Ok(msg) => Ok(HttpResponse::Ok().json(msg)),
+                Err(_) => Ok(HttpResponse::InternalServerError().into())
+            }
+        }).responder()
+}
+
+pub fn user_update_img((user_update_img, state): (Json<UserUpdateImg>, State<AppState>)) -> FutureResponse<HttpResponse> {
+    state.db.send(UserUpdateImg{
+        user_id: user_update_img.user_id,
     })
         .from_err()
         .and_then(|res| {

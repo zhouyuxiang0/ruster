@@ -1,6 +1,6 @@
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, State, Json, AsyncResponder, FutureResponse};
 use futures::Future;
-use share::common::AppState;
+use router::AppState;
 use model::user::{SignupUser, SigninUser};
 
 pub fn signup((signup_user, state): (Json<SignupUser>, State<AppState>)) -> FutureResponse<HttpResponse> {
@@ -23,7 +23,7 @@ pub fn signin((signin_user, state): (Json<SigninUser>, State<AppState>)) -> Futu
     state.db.send(SigninUser{
         username: signin_user.username.clone(),
         password: signin_user.password.clone(),
-        code: signin_user.code,
+        code: signin_user.code.clone(),
     })
         .from_err()
         .and_then(|res| {
