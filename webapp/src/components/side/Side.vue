@@ -3,7 +3,7 @@
         <main>
             <div id="title">
                 <span style="font-size: 1.8rem;">Rustlang-cn</span>
-                <span style="font-size: 1.2rem;">Rust语言中文社区</span>
+                <span style="font-size: 1.2rem;">Rust中文社区</span>
             </div>
             <div id="line"></div>
             <p style="color:green;"><strong>QQ群 : 570065685</strong></p>
