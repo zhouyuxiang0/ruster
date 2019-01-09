@@ -3,7 +3,7 @@ use futures::future::Future;
 use jwt::{decode, Header, Algorithm, Validation};
 
 use model::user::{UserInfo,UserId, UserDelete, UserUpdate, UserUpdateImg, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
-use router::AppState;
+use share::common::AppState;
 use share::common::Claims;
 
 

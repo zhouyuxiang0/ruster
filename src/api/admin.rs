@@ -3,7 +3,7 @@ use futures::Future;
 
 use model::user::{AdminUsers};
 use model::theme::{AdminThemes};
-use router::AppState;
+use share::common::AppState;
 
 pub fn admin_users(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
     req.state().db.send(AdminUsers)

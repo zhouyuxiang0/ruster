@@ -1,7 +1,7 @@
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, AsyncResponder, FutureResponse};
 use futures::Future;
 
-use router::AppState;
+use share::common::AppState;
 use model::info::RusterInfo;
 
 pub fn ruster_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {

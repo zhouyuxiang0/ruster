@@ -10,7 +10,7 @@ use model::user::{User, NewUser, SignupUser, SigninUser, UserInfo, UserUpdate, U
                   UserDelete, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
 use model::response::{Msgs, SigninMsgs, UserIdMsgs,UserInfoMsgs, UserThemesMsgs,UserCommentsMsgs,
                       UserSavesMsgs, UserMessagesMsgs};
-use router::ConnDsl;
+use model::db::ConnDsl;
 use model::message::Message;
 use model::theme::{Theme, Comment,Save};
 use share::common::Claims;
@@ -76,7 +76,7 @@ impl Handler<SigninUser> for ConnDsl {
                 match verify(&signin_user.password, &login_user.password) {
                     Ok(valid) => {
 
-                        let number = [0, 84, 203, 226, 254, 22, 197, 13, 21, 218, 140, 76, 179, 12, 216, 147, 181, 185, 50, 147, 51, 201, 36, 82, 214, 89, 142, 244, 202, 237, 127, 50];
+                        let number = [154, 241, 91, 51, 110, 106, 150, 25, 146, 133, 55, 223, 48, 178, 230, 162, 55, 101, 105, 252, 249, 215, 231, 115, 236, 206, 222, 101, 96, 101, 41, 160];
                         let aa = signin_user.code.as_bytes();
                         let actual = digest::digest(&digest::SHA256, aa);
                         let cc = &actual.as_ref();

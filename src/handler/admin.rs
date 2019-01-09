@@ -1,6 +1,6 @@
 use actix_web::{actix::Handler, error,Error};
 use diesel::{self,RunQueryDsl,QueryDsl,ExpressionMethods};
-use router::ConnDsl;
+use model::db::ConnDsl;
 use model::user::{User,AdminUsers};
 use model::theme::{Theme,AdminThemes};
 use model::response::{AdminUsersMsgs,AdminThemesMsgs};

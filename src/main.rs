@@ -41,7 +41,7 @@ fn main() {
     // builder.set_private_key_file("privkey.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("fullchain.pem").unwrap();
 
-    server::new( move || router::app())
+    server::new( move || router::app_state())
          .bind("localhost:8000").unwrap()
         .shutdown_timeout(2)
         .start();

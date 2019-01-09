@@ -3,7 +3,7 @@ use actix_web::{actix::Handler, error,Error};
 
 use model::{user::User,theme::{Theme,Comment,Save}};
 use model::info::{RusterInfo,RusterInfoMsgs};
-use router::ConnDsl;
+use model::db::ConnDsl;
 
 
 impl Handler<RusterInfo> for ConnDsl {
