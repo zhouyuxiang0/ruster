@@ -9,7 +9,7 @@ CREATE TABLE users (
 );
 
  INSERT INTO users (id, email, username, password, created_at) VALUES
-  (1, 'admin@163.com', 'admin', '$2y$12$gfabVusyJkB5NXJ5QIgvNuXKbQr0wF4uknckcM/xaFAgLrVJDsmCS', '2018-07-08 13:00:26.353041', http://www.gravatar.com/avatar/6c08e5c9d464e98a48dcb39c01b098e0?s=128&d=identicon);
+  (1, 'adminrustlangcn@163.com', 'admin', '$2y$12$gfabVusyJkB5NXJ5QIgvNuXKbQr0wF4uknckcM/xaFAgLrVJDsmCS', '2018-07-08 13:00:26.353041', 'http://www.gravatar.com/avatar/6c08e5c9d464e98a48dcb39c01b098e0?s=128&d=identicon');
  SELECT setval('users_id_seq', 1, true);
 
 CREATE TABLE  themes (
