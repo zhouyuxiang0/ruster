@@ -22,7 +22,7 @@ extern crate md5;
 extern crate ring;
 
 use actix_web::{server,actix::System};
-use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
+// use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 mod api;
 mod handler;
