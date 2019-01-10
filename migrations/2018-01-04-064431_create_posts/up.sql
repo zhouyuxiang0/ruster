@@ -39,8 +39,8 @@ CREATE TABLE  categorys (
   (3, 1, 'faq', '问答', '2018-07-08 13:00:38.353041'),
   (4, 1, 'share', '分享', '2018-07-08 13:00:26.353041'),
   (5, 1, 'job', '工作', '2018-07-08 13:00:28.353041'),
-  (5, 1, 'free', '自由', '2018-07-08 13:00:28.353041');
- SELECT setval('categorys_id_seq', 5, true);
+  (6, 1, 'free', '自由', '2018-07-08 13:00:28.353041');
+ SELECT setval('categorys_id_seq', 6, true);
 
 
  CREATE TABLE  comments (
