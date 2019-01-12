@@ -148,6 +148,7 @@ export default {
 }
 #center #items #detail .col-name {
     color: #f16bf1;
+    font-weight: bold;
 }
 #center #content #detail #info {
   padding-right: 0.8rem;

@@ -142,12 +142,11 @@ a {
     margin-right: 1vw;
   }
   #rnav li #mnumber { 
-      font-size: 15px;
+      font-size: 20px;
       background-color: fuchsia;
       color: gold;
-      padding: 0.3rem 0.3rem;
-      vertical-align: middle;
-    }
+      padding: 0 0.3rem;
+  }
 @media only screen and (max-width:  600px) {
     #lnav #dlnav #tail {
       font-size: 1.1rem;
@@ -163,6 +162,9 @@ a {
       font-size: 1.1rem;
       font-weight: bold;
     }
+    #rnav li #mnumber { 
+      padding: 1vh 4.4vw;
+  }
     #rnav {
       padding-top: 3.8rem;
       height: 0;

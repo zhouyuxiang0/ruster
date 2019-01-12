@@ -262,7 +262,7 @@ export default {
     color: #0541af;
 }
 #theblog #center #comment, #theblog #center #reply {
-    border-top: 1px solid fuchsia;
+    border-top: 1px solid #7B463D;
 }
 #theblog #center #theme #content {
     padding: 0.5rem;
@@ -274,7 +274,7 @@ export default {
 }
 #theblog #center #comment #count {
     font-weight: bold;
-    color: fuchsia;
+    color: #7B463D;
     padding: 10px;
     border-bottom: 1px solid rgb(223, 223, 223);
 }
@@ -297,7 +297,7 @@ export default {
     font-size: 14px;
 }
 #theblog #reply #messagenote {
-    color: fuchsia;
+    color: #7B463D;
 }
 #theblog #center h1,
 #theblog #center h2,

@@ -185,7 +185,7 @@ export default {
     color: #0541af;
 }
 #main #center #theme, #main #center #comment, #main #center #reply {
-    border-top: 1px solid fuchsia;
+    border-top: 1px solid #7B463D;
 }
 #main #center #theme > #title {
     margin-top: 2px;
@@ -209,7 +209,7 @@ export default {
 }
 #main #center #comment #count {
     font-weight: bold;
-    color: fuchsia;
+    color: #7B463D;
     padding: 10px;
     border-bottom: 1px solid rgb(223, 223, 223);
 }
@@ -244,7 +244,7 @@ export default {
     height: 333px;
 }
 #main #reply #messagenote {
-    color: fuchsia;
+    color: #7B463D;
 }
 
 #main #center iframe {
