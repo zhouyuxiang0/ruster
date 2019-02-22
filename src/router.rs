@@ -1,4 +1,4 @@
-use actix_web::{App, http::{header, Method}, fs,error,middleware,middleware::cors::Cors};
+use actix_web::{App, http::{header, Method}, fs,error,middleware,middleware::cors::Cors,actix::Addr};
 
 use api::{home::index, auth::{signup, signin}};
 use api::info::ruster_info;
@@ -9,12 +9,12 @@ use api::user::{user_info, user_delete, user_id,user_update,user_update_img,user
 use model::db::{ ConnDsl, init };
 use share::common::AppState;
 
-pub fn app_state() -> App<AppState> {
+pub fn app_state(addr: Addr<ConnDsl>) -> App<AppState> {
 
-    App::with_state(AppState{ db: init().clone()})
+    App::with_state(AppState{ db: addr.clone()})
         .middleware(middleware::Logger::default())
         .resource("/", |r| r.f(index))
-        .resource("/a/{tail:.*}", |r| r.f(index))
+        .resource(r"/a/{tail:.*}", |r| r.f(index))
         .configure(|app| Cors::for_app(app)
             .allowed_methods(vec!["GET", "POST"])
             .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])

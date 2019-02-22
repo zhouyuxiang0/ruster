@@ -22,6 +22,7 @@ extern crate md5;
 extern crate ring;
 
 use actix_web::{server,actix::System};
+use crate::model::db::init;
 // use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 mod api;
@@ -36,15 +37,16 @@ fn main() {
     ::std::env::set_var("RUST_BACKTRACE", "1");
     env_logger::init();
     let sys = System::new("rustlang-cn");
+    let addr = init();
 
     // let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
     // builder.set_private_key_file("privkey.pem", SslFiletype::PEM).unwrap();
     // builder.set_certificate_chain_file("fullchain.pem").unwrap();
 
-    server::new( move || router::app_state())
+    server::new( move || router::app_state(addr.clone()))
          .bind("localhost:8000").unwrap()
-        .shutdown_timeout(2)
-        .start();
+         .shutdown_timeout(2)
+         .start();
 
     sys.run();
 }
