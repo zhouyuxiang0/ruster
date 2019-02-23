@@ -12,7 +12,7 @@ online community in rust for rust community
 
 - Vuejs / Vuejs与vue-cli 3.0实现前端
 
-## 社区功能： 目前三大功能
+## Ruster功能： 目前三大功能
 
 1. 论坛：板块有：最美/博客/分享/问答/招聘/未回复 (论坛具有扩展性模块支持一键添加)
 
