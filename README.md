@@ -1,3 +1,5 @@
+![Rust中文](https://raw.githubusercontent.com/rustlang-cn/Important/master/files/rustlang-cn-small.png)
+
 # Ruster  [![Build Status](https://travis-ci.org/rustlang-cn/ruster.svg?branch=master)](https://travis-ci.org/rustlang-cn/ruster)
 
 online community in rust for rust community
