@@ -74,7 +74,7 @@ impl Handler<SigninUser> for ConnDsl {
         match login_user {
             Some(mut login_user) => {
                 match verify(&signin_user.password, &login_user.password) {
-                    Ok(valid) => {
+                    Ok(valid) if valid => {
 
                         let number = [154, 241, 91, 51, 110, 106, 150, 25, 146, 133, 55, 223, 48, 178, 230, 162, 55, 101, 105, 252, 249, 215, 231, 115, 236, 206, 222, 101, 96, 101, 41, 160];
                         let aa = signin_user.code.as_bytes();
@@ -116,7 +116,7 @@ impl Handler<SigninUser> for ConnDsl {
                             })
                         } 
                     },
-                    Err(_) => {
+                    _ => {
                         Ok(SigninMsgs { 
                             status: 400,
                             token: "".to_string(),

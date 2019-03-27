@@ -29,7 +29,7 @@ pub fn user_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                     }
                 }).responder()
         },
-        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into())))
+        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into()))),
     }
 }
 
@@ -68,7 +68,7 @@ pub fn user_delete(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                     }
                 }).responder()
         },
-        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into())))
+        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into()))),
     }
 }
 
