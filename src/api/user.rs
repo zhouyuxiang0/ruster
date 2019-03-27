@@ -1,5 +1,5 @@
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, State, Json, AsyncResponder, FutureResponse};
-use futures::future::Future;
+use futures::future::{result as FutureResult, Future};
 use jwt::{decode, Header, Algorithm, Validation};
 
 use model::user::{UserInfo,UserId, UserDelete, UserUpdate, UserUpdateImg, UserThemes,UserComments,UserSaves,UserMessages,UserMessagesReadall};
@@ -29,16 +29,7 @@ pub fn user_info(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                     }
                 }).responder()
         },
-        Err(_) => {
-            req.state().db.send(UserInfo{user_id: "".to_string()})
-                .from_err()
-                .and_then(|res| {
-                    match res {
-                        Ok(msg) => Ok(HttpResponse::Ok().json(msg)),
-                        Err(_) => Ok(HttpResponse::InternalServerError().into())
-                    }
-                }).responder()
-        },
+        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into())))
     }
 }
 
@@ -77,16 +68,7 @@ pub fn user_delete(req: HttpRequest<AppState>) -> FutureResponse<HttpResponse> {
                     }
                 }).responder()
         },
-        Err(_) => {
-            req.state().db.send(UserDelete{user_id: "".to_string()})
-                .from_err()
-                .and_then(|res| {
-                    match res {
-                        Ok(msg) => Ok(HttpResponse::Ok().json(msg)),
-                        Err(_) => Ok(HttpResponse::InternalServerError().into())
-                    }
-                }).responder()
-        },
+        Err(_) => Box::new(FutureResult(Ok(HttpResponse::InternalServerError().into())))
     }
 }
 
