@@ -149,8 +149,11 @@ export default {
 #center #theme_item {
     flex: 1;
 }
-#center #item a {
-  color: #0541af;
+#center #item #item-title a:link {
+    color: #0541af;
+}
+#center #item #item-title a:visited {
+    color: gray;
 }
 #center #items #detail .col-name {
     color: #f16bf1;

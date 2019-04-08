@@ -193,11 +193,14 @@ export default {
     flex: 1;
 }
 #center #office #office-title {
-  color: #b93bf3;
-  font-weight: bold;
+    color: #b93bf3;
+    font-weight: bold;
 }
-#center #item a {
-  color: #0541af;
+#center #item #item-title a:link {
+    color: #0541af;
+}
+#center #item #item-title a:visited {
+    color: gray;
 }
 #center #items #detail .col-name {
     color: #f16bf1;
