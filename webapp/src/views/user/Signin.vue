@@ -63,21 +63,20 @@ export default {
                   },
                   method: 'POST',
                   mode: 'cors'
-              }).then(response => response.json())
-              .then(json => {
+            }).then(response => response.json())
+            .then(json => {
                     if (json.status == 200) {
                         localStorage.setItem('token',json.token);
                         localStorage.setItem('signin_user',JSON.stringify(json.signin_user));
-                        window.location.reload ( true );
-                        // setTimeOut("functionName()",2000);
                         this.$router.push('/');
+                        window.location.reload ( true );
                     }else{
                         alert(json.message)
                     }
-              })
-              .catch((e) => {
+            })
+            .catch((e) => {
                 console.log(e)
-              })
+            })
       }else{
           alert("请先成功通过验证码再登录.")
       }

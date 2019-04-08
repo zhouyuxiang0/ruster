@@ -374,7 +374,7 @@ export default {
     border: 0;
 }
 #theblog #mei {
-    background:url(../../../static/imgs/baner.png) no-repeat;
+    background: linear-gradient(315deg,  rgb(231, 54, 99) 0%,  rgb(97, 24, 233) 100%);
     background-size:100% 100%;
 }
 #theblog #mei h1 {

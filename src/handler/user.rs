@@ -77,6 +77,7 @@ impl Handler<SigninUser> for ConnDsl {
                     Ok(valid) if valid => {
 
                         let number = [154, 241, 91, 51, 110, 106, 150, 25, 146, 133, 55, 223, 48, 178, 230, 162, 55, 101, 105, 252, 249, 215, 231, 115, 236, 206, 222, 101, 96, 101, 41, 160];
+
                         let aa = signin_user.code.as_bytes();
                         let actual = digest::digest(&digest::SHA256, aa);
                         let cc = &actual.as_ref();
