@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "bd0ebe6a94f8069e0f5e",
+    "revision": "8fbea4021d0d33df8af6",
     "url": "/css/app.b8f1a84b.css"
   },
   {
-    "revision": "bd0ebe6a94f8069e0f5e",
-    "url": "/js/app.540f2b0e.js"
+    "revision": "8fbea4021d0d33df8af6",
+    "url": "/js/app.6d97426f.js"
   },
   {
     "revision": "1e05a95951f7e7e355a3",
@@ -220,7 +220,7 @@ self.__precacheManifest = [
     "url": "/img/rust.c797dcac.png"
   },
   {
-    "revision": "430f6509ac812a9b856386719f171fa5",
+    "revision": "f55e6d65dc3f9e06a4be1a8c8a047381",
     "url": "/index.html"
   },
   {

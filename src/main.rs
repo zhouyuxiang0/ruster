@@ -44,7 +44,7 @@ fn main() {
     // builder.set_certificate_chain_file("fullchain.pem").unwrap();
 
     server::new( move || router::app_state(addr.clone()))
-         .bind("localhost:8000").unwrap()
+         .bind("172.31.157.191:80").unwrap()
          .shutdown_timeout(2)
          .start();
 
