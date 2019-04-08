@@ -37,7 +37,7 @@ main #myBtn {
         z-index: 99; /* Make sure it does not overlap */
         border: none; /* Remove borders */
         outline: none; /* Remove outline */
-        background-color: fuchsia; /* Set a background color */
+        background-color: #7B463D; /* Set a background color */
         font-weight: bold;
         color: white; /* Text color */
         cursor: pointer; /* Add a mouse pointer on hover */

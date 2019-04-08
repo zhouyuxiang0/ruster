@@ -4,10 +4,11 @@
       <div id="lnav">
         <div id="line"></div>
         <div id="left">
-          <a id="front" href="/"><img src="../../../static/imgs/rust.png"/></a>
-          <a id="name" href="/">Rust</a>
+          <a id="front" href="/"><img src="../../../static/imgs/rustlang-cn-x.png"/></a>
+          <!-- <a id="name" href="/">Rust</a> -->
           <span id="dlnav">
             <a id="tail" href="https://rustlang-cn.org" target="_blank">文档</a>
+            <a id="tail" href="https://riot.im/app/#/room/#rustlang-cn:matrix.org" target="_blank">聊天室</a>
             <!-- <a id="tail" href="">search</a> -->
           </span>
         </div>
@@ -120,18 +121,16 @@ a {
     box-shadow: 0 3px 3px rgba(200, 216, 206, 0.12), 0 3px 3px rgba(97, 107, 100, 0.24);
   }
  #lnav #left #front img {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: 0.7vh;
+    width: 8rem;
+    height: 3.3rem;
     vertical-align:middle;
   }
-  #lnav #left #name {
+  /* #lnav #left #name {
     font-size: 2rem;
     margin: auto 1vw;
     font-weight: bold;
-    color: var(--grey);
     vertical-align:middle;
-  }
+  } */
   #lnav label {
     float: right;
     font-size: 26px;

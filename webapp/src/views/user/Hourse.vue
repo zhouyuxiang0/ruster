@@ -43,7 +43,7 @@
                     <div v-if="current_user != ''" id="userself">
                         <button id="submit"  @click="updateuser">账号更新</button><br/>
                         <!--<button id="submit"  @click="deleteme">账号删除</button><br/>-->
-                        <button id="submit"  @click="updateuserimg">头像更新</button><br/>
+                        <button id="submit"  @click="updateuserimg">Gravatar头像</button><br/>
 
                         <div id="update" v-if="userupdate == true">
                             <p>账号更新</p> 

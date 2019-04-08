@@ -4,26 +4,21 @@
             <div id="content">
                 <div id="support">
                     <div id="ruster">
-                        <span style="font-size: 1.6rem;">Rustlang-cn : Rust</span>
-                        <span style="font-size: 1.2rem;">为中心的中文网络！</span>
+                        <span style="font-size: 1.6rem;">Rust中文 : </span>
+                        <span style="font-size: 1.2rem;">互助Rust爱好者,致力于Rust编程语言中文网络！</span>
                     </div><br>
-                    <h3>支持Ruster</h3>
-                    <p>Ruster 是一个社区项目，<a href="https://github.com/rustlang-cn/ruster" target="_blank">源码</a>&nbsp;每月需要费用花在云服务器托管，请帮助这个项目给予捐助，谢谢！
-                    联系krircc@aliyun.com.</p>
+                    <h3><a href="/a/office/theme/20" target="_blank">~共建Rust中文宣告~</a></h3>
+                    <p>Rust中文 是一个社区项目，<a href="https://github.com/rustlang-cn/ruster" target="_blank">源码</a>&nbsp;每月需要费用花在云服务器托管，请帮助这个项目给予捐助，谢谢！
+                    联系维护者krircc@aliyun.com.</p>
                 </div><br>
                 <div style="box-shadow: 0 0 3px rgba(0,0,0,0.1), 0 -1px 1px rgba(0,0,0,0.1);width:11.4rem;text-align:center;">
-                    <div><img id="pay" src="../../../static/imgs/weixinpay.jpeg"></div>
+                    <div><img id="pay" src="../../../static/imgs/weixinpay.jpg"></div>
                     <strong>微信支付</strong>
                 </div><br>
                 <div style="box-shadow: 0 0 3px rgba(0,0,0,0.1), 0 -1px 1px rgba(0,0,0,0.1);width:11.4rem;text-align:center;">
                     <div><img id="pay" src="../../../static/imgs/alipay.jpeg"></div>
                     <strong>支付宝</strong>
                 </div><br>
-                <div id="info">
-                    <h3>捐助人组织和个人</h3>
-                    <p>尹延律&emsp;100 &emsp; 2018-07</p>
-                    <p>张立群&emsp;66.66 &emsp; 2018-07</p>
-                </div>
             </div>
         </main>
     </div>
@@ -43,7 +38,6 @@ a {
 }
 main #ruster {
     padding-top: 1rem;
-    color: #b93bf3;
     font-weight: bold;
 }
 main img {
