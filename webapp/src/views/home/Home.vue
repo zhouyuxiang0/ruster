@@ -22,26 +22,24 @@
                             <div id="theme_item">  
                               <div id="office" v-if="theme.category_name === 'office'">
                                   <div id="office-title">
-                                    <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
+                                    <span id="category-name">{{ theme.category_name_cn }}</span><span><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title">{{ theme.title }}</a></span>
                                   </div>
                                   <div id="detail">
-                                      <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
-                                      <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
-                                      <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
-                                      <span id="info">{{ theme.view_count }}</span>
-                                      <span id="info"> {{ theme.rtime }} </span>
+                                      <!-- <span><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span> -->
+                                      <div class="info" id="comment"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></div>
+                                      <div class="info" id="view">{{ theme.view_count }}</div>
+                                      <div class="info" id="time">{{ theme.rtime }}</div>
                                   </div> 
                               </div>
                               <div id="item" v-if="theme.category_name !== 'office'">
                                   <div id="item-title">
-                                    <a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title"> {{ theme.title }} </a>
+                                    <span id="category-name">{{ theme.category_name_cn }}</span><span><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id" title="theme.title">{{ theme.title }}</a></span>
                                   </div>
                                   <div id="detail">
-                                      <span id="info" class="col-name">{{ theme.category_name_cn }}</span>
-                                      <span id="info"><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></span>
-                                      <span id="info"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></span>
-                                      <span id="info">{{ theme.view_count }}</span>
-                                      <span id="info"> {{ theme.rtime }} </span>
+                                      <!-- <div><a :href="'/a/user/' + theme.user_id">{{ theme.username }}</a></div> -->
+                                      <div class="info" id="comment"><a :href="'/a/'+ theme.category_name + '/theme/' + theme.id">{{ theme.comment_count }}</a></div>
+                                      <div class="info" id="view">{{ theme.view_count }}</div>
+                                      <div class="info" id="time">{{ theme.rtime }}</div>
                                   </div>
                               </div>
                             </div>
@@ -175,40 +173,44 @@ export default {
   background-color: #FFFFFF;
 }
 #header {
-  padding: 0.8rem 0.2rem;
+  padding: 0.8rem 0.4rem;
   box-shadow: 0 0 3px rgba(0,0,0,0.1), 0 -1px 1px rgba(0,0,0,0.1);
 }
 #header li {
   display: inline-block;
-  color: #0d8575;
+  color: #7B463D;
   font-weight: bold;
   margin-right: 1rem;
 }
 #container #center #items #line {
     display: flex;
-    padding: 0.2rem 0.4rem;
+    padding: 0 0.4rem;
     border-bottom: 1px solid #f3e1f8;
 }
 #container #center #theme_item {
     flex: 1;
 }
 #center #office #office-title {
-    color: #b93bf3;
+    color: #7B463D;
     font-weight: bold;
-}
-#center #item #item-title a:link {
-    color: #0541af;
 }
 #center #item #item-title a:visited {
     color: gray;
 }
-#center #items #detail .col-name {
-    color: #f16bf1;
+#center #theme_item #category-name {
+    color: #7B463D;
     font-weight: bold;
+    font-size: 0.8rem;
+    background-color: lime;
+    padding: 0.2rem 0.3rem;
+    border-radius: 11%;
 }
-#center #content #detail #info {
-  padding-right: 0.8rem;
-  font-size: 0.7rem;
+#center #theme_item #office-title #category-name {
+    color: #FFFFFF;
+    background-color: purple;
+}
+#center #items #office #office-title a, #center #items #item #item-title a {
+    padding-left: 0.4rem;
 }
 #center #pagination li {
   display: inline; 
@@ -256,34 +258,37 @@ export default {
 #container #rightside #rusterinfo h3 {
   border-bottom: 2px solid #acc;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 599px) {
     main{
         margin: 1vh auto;
         width: 97%;
     }
     #header {
-        padding: 0.3rem 0.2rem;
-    }
-    #center #content #items {
-        padding: 0.2rem 0;
-    }
-    #container #center #items #line {
-        padding: 0.2rem;
+        padding: 0.3rem;
     }
     #container #center #avatar img {
-        width: 2.4rem;
-        height: 2.4rem;
-        margin-right: 0.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-top: 0.4rem;
         border-radius: 50%;
     }
-    #center #items #office #detail, #center #items #item #detail {
-        margin-top: -0.2rem;
+    #center #items #office #office-title, #center #items #item #item-title {
+        padding: 0.4rem 0 0 0.4rem;
+    }
+    #center #items #detail {
+        padding: 0 0 0.2rem 0.5rem;
+    }
+    #center #items #detail .info {
+        display: inline-block;
+        padding-right: 0.8rem;
+        font-size: 0.77rem;
+        color: #7B463D;
     }
     #container #rightside{
         margin-top: 1rem;
     }
 }
-@media only screen and (min-width: 600px) and (max-width: 850px) {
+@media only screen and (min-width: 600px) and (max-width: 999px) {
     main{
         margin: 0 auto;
         width: 80%;
@@ -300,14 +305,26 @@ export default {
     #container #center #avatar img {
         width: 2.5rem;
         height: 2.5rem;
-        margin: 0.2rem 0.6rem 0 0;
+        margin-top: 0.4rem;
         border-radius: 50%;
+    }
+    #center #items #office #office-title, #center #items #item #item-title {
+        padding: 0.4rem 0 0 0.4rem;
+    }
+    #center #items #detail {
+        padding: 0 0 0.2rem 0.5rem;
+    }
+    #center #items #detail .info {
+        display: inline-block;
+        padding-right: 0.8rem;
+        font-size: 0.77rem;
+        color: #7B463D;
     }
     #container #rightside {
         flex: 1;
     }
 }
-@media only screen and (min-width: 850px) {
+@media only screen and (min-width: 1000px) {
     main {
         margin: 0 auto;
         width: 72%;
@@ -322,13 +339,36 @@ export default {
         margin-right: 1vw;
     }
     #container #center #avatar img {
-        width: 2.5rem;
-        height: 2.5rem;
-        margin: 0.2rem 0.6rem 0 0;
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-top: 0.3rem;
         border-radius: 50%;
     }
+    #center #items #office, #center #items #item {
+        display: flex;
+    }
     #center #items #office #office-title, #center #items #item #item-title {
-      font-size: 1.1rem;
+        width: 80%;
+        padding: 0.6rem 0.4rem 0.4rem;
+    }
+    #center #items #detail {
+        flex: 1;
+        display: flex;
+        padding-top: 1rem;
+        color:gray;
+        font-size: 0.88rem;
+    }
+    #center #items #detail #comment {
+        text-align: center;
+        flex-basis: 2rem;
+    }
+    #center #items #detail #view {
+        text-align: center;
+        flex-basis: 3rem;
+    }
+    #center #items #detail #time {
+        text-align: center;
+        flex-grow:1;
     }
     #container #rightside {
         flex: 1;
