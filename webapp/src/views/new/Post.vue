@@ -102,7 +102,7 @@ export default {
                     let category_names = []
                     this.categorys.map((item) => category_names_admin.push(item.category_name_cn))
                     this.category_names_admin = category_names_admin
-                    category_names_admin.filter((item) => { if (item != '官方') category_names.push(item)})
+                    category_names_admin.filter((item) => { if (item != '宣告') category_names.push(item)})
                     this.category_names = category_names
               })
               .catch((e) => {

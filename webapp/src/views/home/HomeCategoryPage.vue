@@ -153,9 +153,8 @@ export default {
 }
 #center #theme_item #category-name {
     color: #7B463D;
-    font-weight: bold;
     font-size: 0.8rem;
-    background-color: lime;
+    background-color: limegreen;
     padding: 0.2rem 0.3rem;
     border-radius: 11%;
 }

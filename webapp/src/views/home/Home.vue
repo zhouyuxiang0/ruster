@@ -199,9 +199,8 @@ export default {
 }
 #center #theme_item #category-name {
     color: #7B463D;
-    font-weight: bold;
     font-size: 0.8rem;
-    background-color: lime;
+    background-color: limegreen;
     padding: 0.2rem 0.3rem;
     border-radius: 11%;
 }
@@ -227,8 +226,9 @@ export default {
   color: #0541af;
   font-weight: bold;
 }
-#container #rightside #bestside #show h3 {
+#container #rightside h3 {
     padding: 0.5rem;
+    color: #7B463D;
     text-align: center;
     border-bottom: 2px solid #acc;
 }
@@ -244,7 +244,7 @@ export default {
 }
 #container #rightside #bestside #show ul li {
     font-size: 1.1rem;
-    color: green;
+    color: #7B463D;
 }
 #bestside, #rusterinfo {
   padding: 0.1rem;

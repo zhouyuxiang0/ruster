@@ -7,7 +7,7 @@
             </div>
             <div id="line"></div>
             <p>支持Rust中文：详见
-                <span style="color:#7B463D;font-weight:bold;"><a href="/a/office/theme/20" target="_blank"> 共建Rust中文宣告 </a></span></p>
+                <span style="font-weight:bold;"><a href="/a/office/theme/20" target="_blank"> 共建Rust中文宣告 </a></span></p>
             
             <p>本站<a href="https://github.com/rustlang-cn/ruster" target="_blank"><strong>源码</strong></a>开源.</p>
         </main>
@@ -28,11 +28,11 @@ main{
     box-shadow: 0 0 3px rgba(0,0,0,0.1), 0 -1px 1px rgba(0,0,0,0.1);
 }
 main a {
-    color: #0541af;
+    color: #7B463D;
 }
 main #title {
-    padding-top: 0.3rem;
-    color: #7B463D; 
+    padding: 0.5rem;
+    color: #7B463D;
     text-align: center;
     font-weight:bold;
 }

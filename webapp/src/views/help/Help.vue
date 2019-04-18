@@ -4,8 +4,8 @@
             <div id="content">
                 <div id="support">
                     <div id="ruster">
-                        <span style="font-size: 1.6rem;">Rust中文 : </span>
-                        <span style="font-size: 1.2rem;">互助Rust爱好者,致力于Rust编程语言中文网络！</span>
+                        <span style="font-size: 1.6rem;">Rust</span>
+                        <span style="font-size: 1.2rem;">中文 : 互助Rust爱好者,致力于Rust编程语言中文网络！</span>
                     </div><br>
                     <h3><a href="/a/office/theme/20" target="_blank">~共建Rust中文宣告~</a></h3>
                     <p>Rust中文 是一个社区项目，<a href="https://github.com/rustlang-cn/ruster" target="_blank">源码</a>&nbsp;每月需要费用花在云服务器托管，请帮助这个项目给予捐助，谢谢！
@@ -37,6 +37,7 @@ a {
   color: #0541af;
 }
 main #ruster {
+    color: #7B463D;
     padding-top: 1rem;
     font-weight: bold;
 }

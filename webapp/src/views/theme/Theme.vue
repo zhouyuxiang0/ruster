@@ -35,21 +35,21 @@
                     <hr>
                     <div id="reply" v-if="signin_user">
                         <div id="messagenote">
-                            <p><strong>注意:</strong>发消息格式:[<strong>@人名 内容</strong>]中间有一空格,不然发不出去或收不到</p>
+                            <p>注意发消息格式为<strong style="background-color: #ccc;">@人名 内容</strong>中间有一空格,不然发不出去或收不到</p>
                         </div>
                         <div id="editor">
                             <mavon-editor name="content" v-model="Content" :ishljs = "true" style="height: 100%;" :toolbars="set"></mavon-editor>
                         </div>
-                        <button style="margin-top: 1vh;
+                        <button style="margin: 0.5rem 0;
                                         width:66px; 
                                         line-height:25px;
                                         background-color:#ffffff;
-                                        border :1px solid #a39c9c;" type="submit" id="submit" @click="comment">评论
+                                        border :2.2px solid #a39c9c;" type="submit" id="submit" @click="comment">评论
                         </button>
                     </div>  
-                    <div v-else style="margin: 10px;">请先登录再发表评论.
-                        <a href="/a/signin" style="background-color:aqua;">登录</a>
-                    </div>    
+                    <div v-else style="padding: 0.8rem;">请先登录再发表评论.
+                        <a href="/a/signin" style="background-color: #ccc; padding: 0.2rem;">登录</a>
+                    </div>     
                 </div>
                 <side></side>
             </div>
